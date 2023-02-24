@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import subprocess
+import sys
 from typing import NamedTuple
 from typing import Sequence
 
@@ -13,44 +14,65 @@ class Gem(NamedTuple):
 
     @property
     def dirname(self) -> str:
-        return f"{self.name}-{self.version}"
+        return f'{self.name}-{self.version}'
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 CACHE_DIR = os.path.join(
-    os.getenv("XDG_CACHE_DIR", os.path.expanduser("~/.cache")),
-    "workstation",
+    os.getenv('XDG_CACHE_DIR', os.path.expanduser('~/.cache')),
+    'workstation',
 )
 
 GEMS = frozenset((
-    Gem("puppet", "7.23.0"),
-    Gem("r10k", "3.15.4"),
+    Gem('puppet', '7.23.0'),
+    Gem('r10k', '3.15.4'),
 ))
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    gems_dir = os.path.join(CACHE_DIR, "gems")
+MODULE_PATH = ':'.join(os.path.join(HERE, d) for d in ('modules', 'vendor'))
 
-    os.environ["GEM_HOME"] = gems_dir
-    os.environ["PATH"] = (
-        os.path.join(gems_dir, "bin")
+
+def main(argv: Sequence[str] | None = None) -> int:
+    gems_dir = os.path.join(CACHE_DIR, 'gem')
+
+    os.environ['GEM_HOME'] = gems_dir
+    os.environ['PATH'] = (
+        os.path.join(gems_dir, 'bin')
         + os.pathsep
-        + os.getenv("PATH", "")
+        + os.getenv('PATH', '')
     )
     for gem in GEMS:
-        if not os.path.exists(os.path.join(gems_dir, "gems", gem.dirname)):
-            subprocess.run(
-                (
-                    "gem",
-                    "install", gem.name,
-                    "--version", gem.version,
-                    "--no-document",
-                ),
-                check=True,
-            )
+        if not os.path.exists(os.path.join(gems_dir, 'gems', gem.dirname)):
+            subprocess.check_call((
+                'gem',
+                'install', gem.name,
+                '--version', gem.version,
+                '--no-document',
+            ))
 
-    return 0
+    subprocess.check_call(('r10k', 'puppetfile', 'install'), cwd=HERE)
+    subprocess.check_call(('r10k', 'puppetfile', 'purge'), cwd=HERE)
+
+    ret = subprocess.call((
+        'sudo',
+        'env',
+        'RUBYOPT=-W0',
+        'PATH={}'.format(os.environ['PATH']),
+        'GEM_HOME={}'.format(os.environ['GEM_HOME']),
+        'SSH_AUTH_SOCK={}'.format(os.environ['SSH_AUTH_SOCK']),
+        'puppet',
+        'apply',
+        '-v',
+        '--show_diff',
+        '--detailed-exitcodes',
+        '--modulepath', MODULE_PATH,
+        '--hiera_config', os.path.join(HERE, 'hiera.yaml'),
+        os.path.join(HERE, 'manifests/site.pp'),
+        *sys.argv[1:],
+    ))
+
+    return ret
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     raise SystemExit(main())

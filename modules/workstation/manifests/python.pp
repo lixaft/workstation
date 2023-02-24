@@ -1,0 +1,10 @@
+class workstation::python {
+
+  $packages = [
+    'python@3.11',
+    'python@3.10',
+    'python@3.9',
+    'python@3.8',
+    'python@3.7',
+  ]
+}

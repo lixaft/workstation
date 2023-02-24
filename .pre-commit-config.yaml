@@ -1,0 +1,52 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: debug-statements
+      - id: double-quote-string-fixer
+      - id: name-tests-test
+      - id: requirements-txt-fixer
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.9.0
+    hooks:
+      - id: reorder-python-imports
+        args: [--py37-plus, --add-import, 'from __future__ import annotations']
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.4.0
+    hooks:
+      - id: add-trailing-comma
+        args: [--py36-plus]
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.3.1
+    hooks:
+      - id: pyupgrade
+        args: [--py37-plus]
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+      - id: autopep8
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.0.1
+    hooks:
+      - id: mypy
+  - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks
+    rev: v2.2.0
+    hooks:
+      - id: puppet-lint
+        args:
+          - --fix
+          - --fail-on-warnings
+          - --no-documentation-check
+          - --no-arrow_on_right_operand_line-check
+      - id: puppet-validate
+  - repo: https://github.com/rubocop/rubocop
+    rev: v1.45.1
+    hooks:
+      - id: rubocop
