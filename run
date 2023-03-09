@@ -8,6 +8,7 @@ import os
 import shutil
 import subprocess
 import sys
+import urllib.request
 from typing import NamedTuple
 from typing import Sequence
 
@@ -55,13 +56,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     if os.getenv("VIRTUAL_ENV") is not None:
         raise SystemExit("run should be executed outside of any virtualenv")
 
-    prefix_path = os.path.join(CACHE_DIR, "pip")
+    venv_path = os.path.join(CACHE_DIR, "venv")
+    zipapp_path = os.path.join(CACHE_DIR, "virtualenv.pyz")
     bin_path = os.path.join(
-        prefix_path,
+        venv_path,
         "bin",
     )
     lib_path = os.path.join(
-        prefix_path,
+        venv_path,
         "lib",
         f"python{sys.version_info.major}.{sys.version_info.minor}",
         "site-packages",
@@ -70,17 +72,27 @@ def main(argv: Sequence[str] | None = None) -> int:
     os.environ["PATH"] = bin_path + os.pathsep + os.getenv("PATH", "")
     os.environ["PYTHONPATH"] = lib_path
 
+    os.makedirs(CACHE_DIR, exist_ok=True)
+
+    if not os.path.exists(zipapp_path):
+        _step("Download the virtualenv zipapp")
+        urllib.request.urlretrieve(
+            "https://bootstrap.pypa.io/virtualenv.pyz",
+            zipapp_path,
+        )
+
+    if not os.path.exists(venv_path):
+        _step("Create the virtual environment")
+        subprocess.check_call(("python3", zipapp_path, venv_path))
+
     for package in PACKAGES:
         if not os.path.exists(os.path.join(lib_path, package.dist_info)):
             _step(f"Create cache : {package.name}")
             subprocess.check_call((
-                "python3",
-                "-m",
-                "pip",
+                os.path.join(bin_path, "pip"),
                 "install",
-                "--prefix", prefix_path,
-                f"{package.name}=={package.version}",
                 "--upgrade",
+                f"{package.name}=={package.version}",
             ))
 
     playbook = "site.yaml" if args.desktop else "core.yaml"

@@ -18,4 +18,5 @@ galaxy_info:
   galaxy_tags:
     - workspace
 
-dependencies: []
+dependencies:
+  - role: utilities

@@ -20,5 +20,6 @@ galaxy_info:
     - tmux
 
 dependencies:
+  - role: utilities
   - role: homebrew
     when: ansible_os_family == 'Darwin'

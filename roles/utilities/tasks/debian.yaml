@@ -1,0 +1,11 @@
+- name: Install packages
+  become: true
+  become_user: root
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - curl
+    - git
+    - tree
+    - wget
