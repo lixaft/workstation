@@ -1,0 +1,11 @@
+---
+- name: Install formulea
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - bash
+    - fish
+    - zsh

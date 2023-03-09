@@ -1,0 +1,7 @@
+---
+- name: Install cask
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: latest

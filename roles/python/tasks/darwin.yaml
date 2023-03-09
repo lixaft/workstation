@@ -1,0 +1,8 @@
+---
+- name: Install formulaes
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew:
+    name: python@{{ item }}
+    state: latest
+  loop: "{{ python_versions }}"

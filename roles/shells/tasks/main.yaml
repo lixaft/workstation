@@ -1,0 +1,14 @@
+---
+- name: Install package
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yaml"
+
+- name: Get fish executable path
+  ansible.builtin.command:
+    cmd: command -v fish
+  changed_when: false
+  register: register_executable
+
+- name: Set the default user shell to fish
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: "{{ register_executable.stdout }}"

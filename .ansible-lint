@@ -1,0 +1,12 @@
+---
+mock_modules:
+  - community.general.homebrew
+  - community.general.homebrew_cask
+
+skip_list:
+  - latest[git]
+  - package-latest
+  - command-instead-of-module
+
+write_list:
+  - all

@@ -1,0 +1,11 @@
+---
+- name: Check if cargo is installed
+  ansible.builtin.command:
+    cmd: command -v cargo
+  register: check_cargo
+  ignore_errors: true
+  changed_when: false
+
+- name: Install rustup
+  ansible.builtin.import_tasks: install.yaml
+  when: check_cargo is failed

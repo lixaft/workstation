@@ -1,0 +1,3 @@
+---
+# TODO: different on linux.
+vscode_user_dir: "{{ home }}/Library/Application Support/Code/User"

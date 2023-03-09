@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  role_name: shells
+  author: Fabien Taxil
+
+  description: >-
+    Install fish bash and zsh shells
+
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: macOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - bash
+    - fish
+    - shell
+    - zsh
+
+dependencies:
+  - role: dotfiles
+  - role: homebrew
+    when: ansible_os_family == 'Darwin'

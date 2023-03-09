@@ -1,0 +1,6 @@
+---
+- name: Core
+  ansible.builtin.import_playbook: core.yaml
+
+- name: Desktop
+  ansible.builtin.import_playbook: desktop.yaml

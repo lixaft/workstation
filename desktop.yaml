@@ -1,0 +1,8 @@
+---
+- name: Core
+  hosts: workstation
+  become: true
+  become_user: "{{ user }}"
+  roles:
+    - fonts
+    - vscode

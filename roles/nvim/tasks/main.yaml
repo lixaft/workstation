@@ -1,0 +1,20 @@
+---
+- name: Install package
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yaml"
+
+- name: Create lazy directory
+  ansible.builtin.file:
+    path: "{{ home }}/.local/share/nvim/lazy"
+    state: directory
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+- name: Clone lazy repository
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.git:
+    repo: https://github.com/wbthomason/packer.nvim
+    dest: "{{ home }}/.local/share/nvim/lazy/lazy.nvim"
+    version: stable
+    update: true

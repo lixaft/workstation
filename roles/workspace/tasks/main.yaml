@@ -1,0 +1,34 @@
+---
+- name: Create the workspace directory
+  ansible.builtin.file:
+    path: "{{ home }}/workspace"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0755"
+
+- name: Clone repositories
+  become: true
+  become_user: "{{ user }}"
+  block:
+    - name: Clone repositories
+      ansible.builtin.git:
+        repo: git@github.com:{{ item }}
+        dest: "{{ home }}/workspace/{{ item.split('/') | last }}"
+        update: false
+      loop:
+        - lixaft/dotfiles
+        - lixaft/random
+        - lixaft/workstation
+        - python/cpython
+
+    - name: Add fork remote to cpython repository
+      ansible.builtin.command:
+        chdir: "{{ home }}/workspace/cpython"
+        cmd: git remote add lixaft git@github.com:lixaft/cpython
+      register: remote_result
+      failed_when:
+        - remote_result is failed
+        - "'error: remote lixaft already exists.' not in remote_result.stderr"
+      changed_when:
+        - remote_result is succeeded

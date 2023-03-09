@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  role_name: utilities
+  author: Fabien Taxil
+
+  description: >-
+    Install the homebrew package manager
+
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: macOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - utilities
+    - packages
+
+dependencies:
+  - role: homebrew
+    when: ansible_os_family == 'Darwin'

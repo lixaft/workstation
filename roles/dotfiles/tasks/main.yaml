@@ -1,0 +1,26 @@
+---
+- name: Create directory
+  ansible.builtin.file:
+    path: "{{ home }}/.config"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0755"
+
+- name: Symlink files
+  ansible.builtin.file:
+    src: "{{ home }}/workspace/dotfiles/src/{{ item }}"
+    dest: "{{ home }}/{{ item }}"
+    state: link
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  loop:
+    - .bashrc
+    - .config/bat
+    - .config/fish
+    - .config/git
+    - .config/nvim
+    - .config/starship.toml
+    - .config/tmux
+    - .pdbrc
+    - .pythonrc

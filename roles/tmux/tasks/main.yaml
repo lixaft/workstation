@@ -1,0 +1,19 @@
+---
+- name: Install package
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}.yaml"
+
+- name: Create TPM directory
+  ansible.builtin.file:
+    path: "{{ home }}/.local/share/tmux/tpm"
+    state: directory
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+- name: Clone TPM repository
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ home }}/.local/share/tmux/tpm/tpm"
+    update: true

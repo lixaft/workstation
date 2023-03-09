@@ -1,0 +1,7 @@
+---
+- name: Install formulea
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew_cask:
+    name: font-fire-code-nerd-font
+    state: latest

@@ -1,0 +1,54 @@
+---
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0755"
+  loop:
+    - "{{ home }}/.local/bin"
+    - "{{ home }}/.local/share"
+
+- name: Install packages in virtual environment
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: latest
+    virtualenv: "{{ home }}/.local/share/venv"
+    virtualenv_command: python3 -m venv
+  loop:
+    - ansible-lint
+    - autopep8
+    - black
+    - flake8
+    - isort
+    - mypy
+    - pre-commit
+    - pytest
+    - ruff
+    - tox
+    - twine
+    - virtualenv
+
+- name: Symlink the executables
+  ansible.builtin.file:
+    src: "{{ home }}/.local/share/venv/bin/{{ item }}"
+    dest: "{{ home }}/.local/bin/{{ item }}"
+    state: link
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  loop:
+    - ansible-lint
+    - autopep8
+    - black
+    - flake8
+    - isort
+    - mypy
+    - pre-commit
+    - pytest
+    - ruff
+    - tox
+    - twine
+    - virtualenv

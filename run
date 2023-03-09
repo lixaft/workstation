@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import getpass
+import grp
+import os
+import shutil
+import subprocess
+import sys
+from typing import NamedTuple
+from typing import Sequence
+
+
+class Package(NamedTuple):
+    name: str
+    version: str
+
+    @property
+    def dist_info(self) -> str:
+        return f"{self.name}-{self.version}.dist-info"
+
+
+CACHE_DIR = os.path.join(
+    os.getenv("XDG_CACHE_DIR", os.path.expanduser("~/.cache")),
+    "workstation",
+)
+
+PACKAGES = frozenset((
+    Package("ansible", "7.3.0"),
+))
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--desktop",
+        action="store_true",
+        help="Run the desktop playbook.",
+    )
+
+    return parser
+
+
+def _step(msg: str) -> None:
+    msg = f"PREPARE [{msg}] "
+    msg += "*" * (shutil.get_terminal_size().columns - len(msg))
+    print(msg, flush=True)
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args, remainders = _parser().parse_known_args(argv)
+
+    if os.getenv("VIRTUAL_ENV") is not None:
+        raise SystemExit("run should be executed outside of any virtualenv")
+
+    prefix_path = os.path.join(CACHE_DIR, "pip")
+    bin_path = os.path.join(
+        prefix_path,
+        "bin",
+    )
+    lib_path = os.path.join(
+        prefix_path,
+        "lib",
+        f"python{sys.version_info.major}.{sys.version_info.minor}",
+        "site-packages",
+    )
+
+    os.environ["PATH"] = bin_path + os.pathsep + os.getenv("PATH", "")
+    os.environ["PYTHONPATH"] = lib_path
+
+    for package in PACKAGES:
+        if not os.path.exists(os.path.join(lib_path, package.dist_info)):
+            _step(f"Create cache : {package.name}")
+            subprocess.check_call((
+                "python3",
+                "-m",
+                "pip",
+                "install",
+                "--prefix", prefix_path,
+                f"{package.name}=={package.version}",
+                "--upgrade",
+            ))
+
+    playbook = "site.yaml" if args.desktop else "core.yaml"
+    extra = {
+        "user": getpass.getuser(),
+        "group": grp.getgrgid(os.getgid()).gr_name,
+        "home": os.path.expanduser("~"),
+    }
+
+    return subprocess.call(
+        (
+            "ansible-playbook",
+            "--inventory", "hosts",
+            "--ask-become-pass",
+            "--extra-vars", " ".join((f"{k}={v}" for k, v in extra.items())),
+            *remainders,
+            playbook,
+        ),
+        env=os.environ,
+    )
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

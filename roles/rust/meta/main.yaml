@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  role_name: rust
+  author: Fabien Taxil
+
+  description: >-
+    Install rust using rustup
+
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: macOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - rust
+
+dependencies: []

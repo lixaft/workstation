@@ -1,0 +1,49 @@
+---
+- name: Install application
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yaml"
+
+- name: Install extensions
+  become: true
+  become_user: "{{ user }}"
+  vscode_ext:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - enkia.tokyo-night
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - ms-vscode.cpptools
+    - redhat.vscode-yaml
+    - rust-lang.rust-analyzer
+    - sumneko.lua
+    - twxs.cmake
+    - wholroyd.jinja
+    - yzhang.markdown-all-in-one
+
+- name: Create user directory
+  ansible.builtin.file:
+    path: "{{ vscode_user_dir }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0755"
+
+- name: Copy settings
+  ansible.builtin.template:
+    src: settings.jsonc
+    dest: "{{ vscode_user_dir }}/settings.json"
+    force: true
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0644"
+
+- name: Install keybindings
+  ansible.builtin.copy:
+    src: keybindings.jsonc
+    dest: "{{ vscode_user_dir }}/keybindings.json"
+    force: true
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0644"
+
+# TODO: install snippets

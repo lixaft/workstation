@@ -1,0 +1,37 @@
+---
+- name: Check executable
+  ansible.builtin.command:
+    cmd: command -v brew
+  register: check_result
+  ignore_errors: true
+  changed_when: false
+
+- name: Install homebrew
+  become: true
+  become_user: "{{ user }}"
+  when: check_result is failed
+  block:
+    - name: Download install script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+        dest: /tmp/homebrew.sh
+        mode: "0700"
+      register: download_result
+
+    # TODO: sudo password is required to run this install script. It should be
+    # possible to provide one using the $SUDO_ASKPASS variable. Ideally, I'd
+    # like to reuse the one from the --ask-become-pass prompt.
+    - name: Install package
+      environment:
+        NONINTERACTIVE: "1"
+      ansible.builtin.command:
+        cmd: "{{ download_result.dest }}"
+      when: download_result is succeeded
+      changed_when: true
+
+- name: Update homebrew
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew:
+    update_homebrew: true
+  when: check_result is succeeded

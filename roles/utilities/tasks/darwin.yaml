@@ -1,0 +1,34 @@
+---
+- name: Install formulea
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - bat
+    - bottom
+    - cmake
+    - coreutils
+    - curl
+    - dos2unix
+    - dust
+    - exa
+    - fd
+    - git
+    - gnu-sed
+    - graphviz
+    - htop
+    - just
+    - jq
+    - make
+    - neofetch
+    - procs
+    - ripgrep
+    - sqlite
+    - starship
+    - tokei
+    - tree-sitter
+    - unix2dos
+    - watch
+    - wget

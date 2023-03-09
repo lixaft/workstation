@@ -1,0 +1,17 @@
+---
+- name: Download install script
+  ansible.builtin.get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: "0700"
+  register: download_result
+
+- name: Install application
+  become: true
+  become_user: "{{ user }}"
+  ansible.builtin.command:
+    cmd: "{{ download_result.dest }} -y"
+  when: download_result is succeeded
+  changed_when: true

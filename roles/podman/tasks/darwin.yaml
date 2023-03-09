@@ -1,0 +1,7 @@
+---
+- name: Install formulea
+  become: true
+  become_user: "{{ user }}"
+  community.general.homebrew:
+    name: podman
+    state: latest

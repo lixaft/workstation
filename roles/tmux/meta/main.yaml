@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  role_name: tmux
+  author: Fabien Taxil
+
+  description: >-
+    Install and setup tmux
+
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: macOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - multiplexer
+    - terminal
+    - tmux
+
+dependencies:
+  - role: homebrew
+    when: ansible_os_family == 'Darwin'

@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  role_name: fonts
+  author: Fabien Taxil
+
+  description: >-
+    Install fonts
+
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: macOS
+      versions:
+        - all
+
+  galaxy_tags:
+    - fonts
+    - nerdfont
+
+dependencies:
+  - role: homebrew
+    when: ansible_os_family == 'Darwin'
