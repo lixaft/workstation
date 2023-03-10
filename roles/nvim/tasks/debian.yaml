@@ -1,0 +1,8 @@
+- name: Add PPA repository
+  ansible.builtin.apt_repository:
+    repo: "ppa:neovim-ppa/unstable"
+
+- name: Install package
+  ansible.builtin.apt:
+    name: neovim
+    state: latest

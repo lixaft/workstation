@@ -1,6 +1,6 @@
 - name: Install packages
   ansible.builtin.apt:
-    name: "{{ item }}"
+    name: "lua{{ item }}"
     state: latest
   loop:
     - "5.4"

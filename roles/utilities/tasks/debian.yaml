@@ -5,6 +5,11 @@
     state: latest
   loop:
     - curl
+    - fd-find
+    - g++
+    - gcc
     - git
+    - ripgrep
+    - software-properties-common
     - tree
     - wget

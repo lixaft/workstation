@@ -14,7 +14,6 @@
   become: true
   become_user: "{{ user }}"
   ansible.builtin.git:
-    repo: https://github.com/wbthomason/packer.nvim
+    repo: https://github.com/folke/lazy.nvim
     dest: "{{ home }}/.local/share/nvim/lazy/lazy.nvim"
-    version: stable
     update: true
