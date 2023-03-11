@@ -5,4 +5,6 @@
   community.general.homebrew:
     name: lua@{{ item }}
     state: latest
-  loop: "{{ lua_versions }}"
+  loop:
+    - lua@5.3
+    - lua@5.4

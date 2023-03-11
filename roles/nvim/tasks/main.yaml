@@ -16,4 +16,5 @@
   ansible.builtin.git:
     repo: https://github.com/folke/lazy.nvim
     dest: "{{ home }}/.local/share/nvim/lazy/lazy.nvim"
+    version: stable
     update: true

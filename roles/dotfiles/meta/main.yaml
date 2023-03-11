@@ -13,7 +13,7 @@ galaxy_info:
     - name: macOS
       versions:
         - all
-    - name: Debian
+    - name: Ubuntu
       versions:
         - all
 

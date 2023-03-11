@@ -1,0 +1,9 @@
+---
+# - name: Add PPA repository
+#   ansible.builtin.apt_repository:
+#     repo: devel:kubic:libcontainers:unstable
+
+- name: Install package
+  ansible.builtin.apt:
+    name: podman
+    state: latest

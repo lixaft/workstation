@@ -18,9 +18,9 @@
         mode: "0700"
       register: download_result
 
-    # TODO: sudo password is required to run this install script. It should be
-    # possible to provide one using the $SUDO_ASKPASS variable. Ideally, I'd
-    # like to reuse the one from the --ask-become-pass prompt.
+    # TODO: sudo password is required to run this install script.
+    # It should be possible to provide one using the $SUDO_ASKPASS variable.
+    # Ideally, I'd like to reuse the one from the --ask-become-pass prompt.
     - name: Install package
       environment:
         NONINTERACTIVE: "1"

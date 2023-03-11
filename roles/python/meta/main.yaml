@@ -13,6 +13,9 @@ galaxy_info:
     - name: macOS
       versions:
         - all
+    - name: Ubuntu
+      versions:
+        - all
 
   galaxy_tags:
     - python

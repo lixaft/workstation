@@ -1,0 +1,13 @@
+---
+- name: Add PPA repository
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+
+- name: Install packages
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - bash
+    - fish
+    - zsh

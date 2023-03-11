@@ -1,4 +1,4 @@
+---
 - name: Add deadsnakes PPA repository
   ansible.builtin.apt_repository:
     repo: ppa:deadsnakes/ppa
-  tags: t

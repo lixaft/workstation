@@ -15,12 +15,13 @@
     - dust
     - exa
     - fd
+    - gcc
     - git
     - gnu-sed
     - graphviz
     - htop
-    - just
     - jq
+    - just
     - make
     - neofetch
     - procs
