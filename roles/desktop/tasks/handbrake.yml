@@ -1,0 +1,6 @@
+- name: Install handbrake
+  ansible.builtin.apt:
+    name: handbrake
+    state: latest
+  tags:
+    - update

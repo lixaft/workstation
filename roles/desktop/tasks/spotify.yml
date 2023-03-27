@@ -1,0 +1,20 @@
+- name: Download Spotify GPG key
+  ansible.builtin.get_url:
+    url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
+    dest: /etc/apt/keyrings/spotify.asc
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add Spotify repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by=/etc/apt/keyrings/spotify.asc]
+      http://repository.spotify.com stable non-free
+    state: present
+
+- name: Install Spotify
+  ansible.builtin.apt:
+    name: spotify-client
+  tags:
+    - update

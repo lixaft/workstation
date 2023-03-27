@@ -1,0 +1,21 @@
+- name: Download anydesk gpg key
+  ansible.builtin.get_url:
+    url: https://keys.anydesk.com/repos/DEB-GPG-KEY
+    dest: /etc/apt/keyrings/anydesk.asc
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add anydesk repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [signed-by=/etc/apt/keyrings/anydesk.asc]
+      http://deb.anydesk.com/ all main
+    state: present
+
+- name: Install anydesk
+  ansible.builtin.apt:
+    name: anydesk
+    state: latest
+  tags:
+    - update

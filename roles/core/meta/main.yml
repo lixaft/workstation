@@ -1,0 +1,16 @@
+galaxy_info:
+  role_name: core
+  author: Fabien Taxil
+
+  description: >-
+    Install and configure the core applications of my workstation
+  license: MIT
+  min_ansible_version: "2.8"
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - workspace

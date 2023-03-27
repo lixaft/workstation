@@ -1,0 +1,71 @@
+- name: Add vscode apt key
+  ansible.builtin.get_url:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    dest: /etc/apt/keyrings/microsoft.asc
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: Add vscode apt repository
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc]
+      https://packages.microsoft.com/repos/vscode stable main
+    state: present
+
+- name: Install vscode package
+  ansible.builtin.apt:
+    name: code
+    state: latest
+
+- name: Install vscode extensions
+  become: true
+  become_user: lixaft
+  vscode_extension:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - enkia.tokyo-night
+    - ms-python.python
+    - ms-python.vscode-pylance
+    - ms-vscode.cpptools
+    - redhat.vscode-yaml
+    - rust-lang.rust-analyzer
+    - sumneko.lua
+    - twxs.cmake
+    - wholroyd.jinja
+    - yzhang.markdown-all-in-one
+
+- name: Create user directory
+  ansible.builtin.file:
+    path: /home/lixaft/.config/Code/User
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: Setup user settings
+  ansible.builtin.template:
+    src: vscode_settings.jsonc
+    dest: /home/lixaft/.config/Code/User/settings.json
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: Setup user keybindings
+  ansible.builtin.template:
+    src: vscode_keybindings.jsonc
+    dest: /home/lixaft/.config/Code/User/keybindings.json
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: Setup user snippets
+  ansible.builtin.copy:
+    src: vscode_snippets
+    dest: /home/lixaft/.config/Code/User/snippets
+    owner: lixaft
+    group: lixaft
+    mode: "0755"

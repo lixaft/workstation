@@ -1,0 +1,6 @@
+- name: Install podman
+  ansible.builtin.apt:
+    name: podman
+    state: latest
+  tags:
+    - update

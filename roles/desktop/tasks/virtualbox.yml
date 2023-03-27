@@ -1,0 +1,6 @@
+- name: Install virtualbox
+  ansible.builtin.apt:
+    name: virtualbox
+    state: latest
+  tags:
+    - update

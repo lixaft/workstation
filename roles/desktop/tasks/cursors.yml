@@ -1,0 +1,22 @@
+- name: Create icon directories
+  ansible.builtin.file:
+    path: /home/lixaft/.icons/default
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: Download phinger cursors
+  ansible.builtin.get_url:
+    url: https://github.com/phisch/phinger-cursors/releases/latest/download/phinger-cursors-variants.tar.bz2
+    dest: /tmp/phinger_cursors.tar.bz2
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: Unarchive the cursor theme
+  ansible.builtin.unarchive:
+    src: /tmp/phinger_cursors.tar.bz2
+    dest: /home/lixaft/.icons
+    owner: lixaft
+    group: lixaft

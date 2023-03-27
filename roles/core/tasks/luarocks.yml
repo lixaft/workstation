@@ -1,0 +1,6 @@
+- name: Install luarocks
+  ansible.builtin.apt:
+    name: luarocks
+    state: latest
+  tags:
+    - update

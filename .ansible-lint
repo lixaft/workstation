@@ -1,0 +1,8 @@
+---
+mock_modules:
+  - community.general.cargo
+
+skip_list:
+  - latest[git]
+  - package-latest
+  - command-instead-of-module

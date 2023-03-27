@@ -1,0 +1,11 @@
+- name: Add OBS PPA
+  ansible.builtin.apt_repository:
+    repo: ppa:obsproject/obs-studio
+    state: present
+
+- name: Install OBS
+  ansible.builtin.apt:
+    name: obs-studio
+    state: latest
+  tags:
+    - update

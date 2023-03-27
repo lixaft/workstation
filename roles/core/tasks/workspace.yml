@@ -1,0 +1,24 @@
+- name: Clone repositories
+  become: true
+  become_user: lixaft
+  block:
+    - name: Clone workspace repositories
+      ansible.builtin.git:
+        repo: git@github.com:{{ item }}
+        dest: /home/lixaft/dev/{{ item.split('/') | last }}
+        update: false
+      loop:
+        - lixaft/random
+        - lixaft/workstation
+        - python/cpython
+
+    - name: Add remote to cpython repository
+      ansible.builtin.command:
+        chdir: /home/lixaft/dev/cpython
+        cmd: git remote add lixaft git@github.com:lixaft/cpython
+      register: remote_result
+      failed_when:
+        - remote_result is failed
+        - "'error: remote lixaft already exists.' not in remote_result.stderr"
+      changed_when:
+        - remote_result is succeeded

@@ -1,0 +1,9 @@
+- name: Install C/C++ compilers
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - g++
+    - gcc
+  tags:
+    - update
