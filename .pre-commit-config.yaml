@@ -51,6 +51,6 @@ repos:
     hooks:
       - id: prettier
   - repo: https://github.com/ansible/ansible-lint
-    rev: v6.14.2
+    rev: v6.14.3
     hooks:
       - id: ansible-lint
