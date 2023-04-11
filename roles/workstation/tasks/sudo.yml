@@ -1,0 +1,30 @@
+- name: Install sudo
+  ansible.builtin.apt:
+    name: sudo
+    state: latest
+  tags: &tags
+    - sudo
+
+- name: Create sudo group
+  ansible.builtin.group:
+    name: sudo
+    state: present
+  tags: *tags
+
+- name: Add user to sudo group
+  ansible.builtin.user:
+    name: lixaft
+    groups: [sudo]
+    append: true
+  tags: *tags
+
+- name: Add group sudoers
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regex: ^%sudo
+    line: "%sudo\tALL=(ALL:ALL) ALL"
+    state: present
+    owner: root
+    group: root
+    mode: "0440"
+  tags: *tags

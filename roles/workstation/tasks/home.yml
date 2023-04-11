@@ -1,0 +1,17 @@
+- name: Create home directories
+  ansible.builtin.file:
+    name: /home/lixaft/{{ item }}
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  loop:
+    - .cache
+    - .config
+    - .local/bin
+    - .local/share
+    - .local/state
+    - .opt
+  tags:
+    - dotfiles
+    - home

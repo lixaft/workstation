@@ -1,0 +1,37 @@
+- name: Create dev directory
+  ansible.builtin.file:
+    path: /home/lixaft/dev
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  tags: &tags
+    - dev
+
+- name: Clone workspace repositories
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:{{ item }}
+    dest: /home/lixaft/dev/{{ item.split('/') | last }}
+    update: false
+    accept_newhostkey: true
+  loop:
+    - lixaft/random
+    - lixaft/workstation
+    - python/cpython
+  tags: *tags
+
+- name: Add remote to cpython repository
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    chdir: /home/lixaft/dev/cpython
+    cmd: git remote add lixaft git@github.com:lixaft/cpython
+  register: remote_result
+  failed_when:
+    - remote_result is failed
+    - "'error: remote lixaft already exists.' not in remote_result.stderr"
+  changed_when:
+    - remote_result is succeeded
+  tags: *tags

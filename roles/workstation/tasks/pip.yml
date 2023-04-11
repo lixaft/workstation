@@ -1,0 +1,35 @@
+- name: Download virtualenv
+  ansible.builtin.get_url:
+    url: https://bootstrap.pypa.io/virtualenv.pyz
+    dest: /tmp/virtualenv.pyz
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+  tags: &tags
+    - pip
+
+- name: Install python packages in a virtualenv
+  become: true
+  become_user: lixaft
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: latest
+    virtualenv: /home/lixaft/.opt/venv
+    virtualenv_command: python3 /tmp/virtualenv.pyz
+  loop: &packages
+    - pre-commit
+    - pytest
+    - tox
+    - twine
+    - virtualenv
+  tags: *tags
+
+- name: Symlink executables from the virtualenv
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/venv/bin/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop: *packages
+  tags: *tags

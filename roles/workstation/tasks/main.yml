@@ -1,0 +1,53 @@
+# Users.
+- ansible.builtin.import_tasks: user.yml
+- ansible.builtin.import_tasks: sudo.yml
+- ansible.builtin.import_tasks: home.yml
+- ansible.builtin.import_tasks: ssh.yml
+
+# Utilities packages.
+- ansible.builtin.import_tasks: utilities.yml
+
+# Languages.
+- ansible.builtin.import_tasks: c.yml
+- ansible.builtin.import_tasks: lua.yml
+- ansible.builtin.import_tasks: node.yml
+- ansible.builtin.import_tasks: python.yml
+- ansible.builtin.import_tasks: rust.yml
+
+# Language packages.
+- ansible.builtin.import_tasks: cargo.yml
+- ansible.builtin.import_tasks: pip.yml
+
+# Tools.
+- ansible.builtin.import_tasks: fish.yml
+- ansible.builtin.import_tasks: nvim.yml
+- ansible.builtin.import_tasks: podman.yml
+
+# Workspace.
+- ansible.builtin.import_tasks: dev.yml
+- ansible.builtin.import_tasks: dotfiles.yml
+
+# Theme.
+- ansible.builtin.import_tasks: desktop/cursor.yml
+- ansible.builtin.import_tasks: desktop/font.yml
+- ansible.builtin.import_tasks: desktop/i3.yml
+- ansible.builtin.import_tasks: desktop/icon.yml
+- ansible.builtin.import_tasks: desktop/picom.yml
+
+# Applications.
+- ansible.builtin.import_tasks: app/anydesk.yml
+- ansible.builtin.import_tasks: app/brave.yml
+- ansible.builtin.import_tasks: app/discord.yml
+- ansible.builtin.import_tasks: app/figma.yml
+- ansible.builtin.import_tasks: app/filebot.yml
+- ansible.builtin.import_tasks: app/flameshot.yml
+- ansible.builtin.import_tasks: app/gimp.yml
+- ansible.builtin.import_tasks: app/handbrake.yml
+- ansible.builtin.import_tasks: app/nitrogen.yml
+- ansible.builtin.import_tasks: app/obs.yml
+- ansible.builtin.import_tasks: app/peek.yml
+- ansible.builtin.import_tasks: app/qbittorrent.yml
+- ansible.builtin.import_tasks: app/virtualbox.yml
+- ansible.builtin.import_tasks: app/vlc.yml
+- ansible.builtin.import_tasks: app/spotify.yml
+- ansible.builtin.import_tasks: app/vscode.yml

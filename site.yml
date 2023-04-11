@@ -10,5 +10,4 @@
       tags:
         - update
   roles:
-    - core
-    - desktop
+    - workstation

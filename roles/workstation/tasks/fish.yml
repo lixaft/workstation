@@ -1,0 +1,17 @@
+- name: Add fish repository
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+  tags: &tags
+    - fish
+
+- name: Install fish
+  ansible.builtin.apt:
+    name: fish
+    state: latest
+  tags: *tags
+
+- name: Setup fish as default shell
+  ansible.builtin.user:
+    name: lixaft
+    shell: /usr/bin/fish
+  tags: *tags

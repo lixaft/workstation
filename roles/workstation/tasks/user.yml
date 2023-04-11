@@ -1,0 +1,14 @@
+- name: Create group
+  ansible.builtin.group:
+    name: lixaft
+    state: present
+  tags: &tags
+    - user
+
+- name: Create user
+  ansible.builtin.user:
+    name: lixaft
+    group: lixaft
+    state: present
+    create_home: true
+  tags: *tags

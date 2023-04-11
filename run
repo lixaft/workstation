@@ -22,7 +22,7 @@ CACHE_DIR = os.path.join(
 )
 
 PACKAGES = frozenset((
-    Package("ansible", "7.3.0"),
+    Package("ansible", "7.4.0"),
 ))
 
 
@@ -87,6 +87,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         os.path.join(venv, "bin", "ansible-playbook"),
         "--inventory", "hosts",
         "--ask-become-pass",
+        "--ask-vault-pass",
         *remainders,
         "site.yml",
     ))

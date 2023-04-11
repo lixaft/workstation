@@ -1,6 +1,0 @@
-- name: Install npm
-  ansible.builtin.apt:
-    name: npm
-    state: latest
-  tags:
-    - update

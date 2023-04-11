@@ -1,7 +1,0 @@
-- name: Install utilities
-  ansible.builtin.apt:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - picom
-    - rofi
