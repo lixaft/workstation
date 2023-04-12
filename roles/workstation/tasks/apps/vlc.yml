@@ -3,4 +3,5 @@
     name: vlc
     state: latest
   tags:
-    - update
+    - vlc
+    - apps

@@ -3,4 +3,5 @@
     name: virtualbox
     state: latest
   tags:
-    - update
+    - virtualbox
+    - apps

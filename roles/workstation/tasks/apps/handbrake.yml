@@ -3,4 +3,5 @@
     name: handbrake
     state: latest
   tags:
-    - update
+    - handbrake
+    - apps

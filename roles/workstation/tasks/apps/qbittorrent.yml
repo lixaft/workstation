@@ -2,10 +2,12 @@
   ansible.builtin.apt_repository:
     repo: ppa:qbittorrent-team/qbittorrent-stable
     state: present
+  tags: &tags
+    - qbittorrent
+    - apps
 
 - name: Install qbittorrent
   ansible.builtin.apt:
     name: qbittorrent
     state: latest
-  tags:
-    - update
+  tags: *tags

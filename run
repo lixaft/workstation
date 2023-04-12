@@ -26,18 +26,6 @@ PACKAGES = frozenset((
 ))
 
 
-def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        "--desktop",
-        action="store_true",
-        help="Run the desktop playbook.",
-    )
-
-    return parser
-
-
 def _step(msg: str) -> None:
     msg = f"PRE [{msg}] "
     msg += "*" * (shutil.get_terminal_size().columns - len(msg))
@@ -45,7 +33,8 @@ def _step(msg: str) -> None:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    args, remainders = _parser().parse_known_args(argv)
+    parser = argparse.ArgumentParser()
+    args, remainders = parser.parse_known_args(argv)
 
     if os.getenv("VIRTUAL_ENV") is not None:
         raise SystemExit("run should be executed outside of any virtualenv")

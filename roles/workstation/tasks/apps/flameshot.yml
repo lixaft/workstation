@@ -3,4 +3,5 @@
     name: flameshot
     state: latest
   tags:
-    - update
+    - flameshot
+    - apps

@@ -6,6 +6,9 @@
     owner: root
     group: root
     mode: "0644"
+  tags: &tags
+    - filebot
+    - apps
 
 - name: Enable FileBot repository
   ansible.builtin.apt_repository:
@@ -13,9 +16,9 @@
       deb [arch=all signed-by=/etc/apt/keyrings/filebot.asc]
       https://get.filebot.net/deb/ universal main
     state: present
+  tags: *tags
 
 - name: Install FileBot
   ansible.builtin.apt:
     name: filebot
-  tags:
-    - update
+  tags: *tags

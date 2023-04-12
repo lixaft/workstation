@@ -5,6 +5,9 @@
     owner: root
     group: root
     mode: "0644"
+  tags: &tags
+    - anydesk
+    - apps
 
 - name: Add anydesk repository
   ansible.builtin.apt_repository:
@@ -12,10 +15,10 @@
       deb [signed-by=/etc/apt/keyrings/anydesk.asc]
       http://deb.anydesk.com/ all main
     state: present
+  tags: *tags
 
 - name: Install anydesk
   ansible.builtin.apt:
     name: anydesk
     state: latest
-  tags:
-    - update
+  tags: *tags

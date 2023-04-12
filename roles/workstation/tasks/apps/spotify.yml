@@ -5,6 +5,9 @@
     owner: root
     group: root
     mode: "0644"
+  tags: &tags
+    - spotify
+    - apps
 
 - name: Add Spotify repository
   ansible.builtin.apt_repository:
@@ -12,9 +15,9 @@
       deb [signed-by=/etc/apt/keyrings/spotify.asc]
       http://repository.spotify.com stable non-free
     state: present
+  tags: *tags
 
 - name: Install Spotify
   ansible.builtin.apt:
     name: spotify-client
-  tags:
-    - update
+  tags: *tags

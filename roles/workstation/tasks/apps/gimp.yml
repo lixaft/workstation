@@ -3,4 +3,5 @@
     name: gimp
     state: latest
   tags:
-    - update
+    - gimp
+    - apps

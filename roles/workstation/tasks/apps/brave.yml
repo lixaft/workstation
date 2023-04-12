@@ -5,6 +5,9 @@
     owner: root
     group: root
     mode: "0644"
+  tags: &tags
+    - brave
+    - apps
 
 - name: Add brave repository
   ansible.builtin.apt_repository:
@@ -12,9 +15,9 @@
       deb [arch=amd64 signed-by=/etc/apt/keyrings/brave-browser.gpg]
       https://brave-browser-apt-release.s3.brave.com/ stable main
     state: present
+  tags: *tags
 
 - name: Install brave
   ansible.builtin.apt:
     name: brave-browser
-  tags:
-    - update
+  tags: *tags

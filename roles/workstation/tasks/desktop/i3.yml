@@ -2,3 +2,6 @@
   ansible.builtin.apt:
     name: i3
     state: latest
+  tags:
+    - i3
+    - desktop

@@ -4,6 +4,7 @@
     state: present
   tags: &tags
     - icon
+    - desktop
 
 - name: Install the papirus package
   ansible.builtin.apt:

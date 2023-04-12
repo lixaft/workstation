@@ -1,10 +1,13 @@
-- name: Add vscode apt key
+- name: Add microsoft apt key
   ansible.builtin.get_url:
     url: https://packages.microsoft.com/keys/microsoft.asc
     dest: /etc/apt/keyrings/microsoft.asc
-    owner: lixaft
-    group: lixaft
+    owner: root
+    group: root
     mode: "0644"
+  tags: &tags
+    - vscode
+    - apps
 
 - name: Add vscode apt repository
   ansible.builtin.apt_repository:
@@ -12,11 +15,13 @@
       deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft.asc]
       https://packages.microsoft.com/repos/vscode stable main
     state: present
+  tags: *tags
 
 - name: Install vscode package
   ansible.builtin.apt:
     name: code
     state: latest
+  tags: *tags
 
 - name: Install vscode extensions
   become: true
@@ -35,6 +40,7 @@
     - twxs.cmake
     - wholroyd.jinja
     - yzhang.markdown-all-in-one
+  tags: *tags
 
 - name: Create user directory
   ansible.builtin.file:
@@ -43,6 +49,7 @@
     owner: lixaft
     group: lixaft
     mode: "0755"
+  tags: *tags
 
 - name: Setup user settings
   ansible.builtin.template:
@@ -52,6 +59,7 @@
     owner: lixaft
     group: lixaft
     mode: "0644"
+  tags: *tags
 
 - name: Setup user keybindings
   ansible.builtin.template:
@@ -61,6 +69,7 @@
     owner: lixaft
     group: lixaft
     mode: "0644"
+  tags: *tags
 
 - name: Setup user snippets
   ansible.builtin.copy:
@@ -69,3 +78,4 @@
     owner: lixaft
     group: lixaft
     mode: "0755"
+  tags: *tags

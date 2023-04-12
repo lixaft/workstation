@@ -2,10 +2,12 @@
   ansible.builtin.apt_repository:
     repo: ppa:peek-developers/stable
     state: present
+  tags: &tags
+    - peek
+    - apps
 
 - name: Install peek
   ansible.builtin.apt:
     name: peek
     state: latest
-  tags:
-    - update
+  tags: *tags

@@ -2,15 +2,18 @@
   ansible.builtin.apt_repository:
     repo: ppa:chrdevs/figma
     state: present
+  tags: &tags
+    - figma
+    - apps
 
 - name: Install Figma
   ansible.builtin.apt:
     name: figma-linux
     state: latest
-  tags:
-    - update
+  tags: *tags
 
 - name: Ensure that figma-linux is executable
   ansible.builtin.file:
     path: /opt/figma-linux/figma-linux
     mode: "0755"
+  tags: *tags

@@ -1,4 +1,4 @@
-# Users.
+# User.
 - ansible.builtin.import_tasks: user.yml
 - ansible.builtin.import_tasks: sudo.yml
 - ansible.builtin.import_tasks: home.yml
@@ -35,19 +35,19 @@
 - ansible.builtin.import_tasks: desktop/picom.yml
 
 # Applications.
-- ansible.builtin.import_tasks: app/anydesk.yml
-- ansible.builtin.import_tasks: app/brave.yml
-- ansible.builtin.import_tasks: app/discord.yml
-- ansible.builtin.import_tasks: app/figma.yml
-- ansible.builtin.import_tasks: app/filebot.yml
-- ansible.builtin.import_tasks: app/flameshot.yml
-- ansible.builtin.import_tasks: app/gimp.yml
-- ansible.builtin.import_tasks: app/handbrake.yml
-- ansible.builtin.import_tasks: app/nitrogen.yml
-- ansible.builtin.import_tasks: app/obs.yml
-- ansible.builtin.import_tasks: app/peek.yml
-- ansible.builtin.import_tasks: app/qbittorrent.yml
-- ansible.builtin.import_tasks: app/virtualbox.yml
-- ansible.builtin.import_tasks: app/vlc.yml
-- ansible.builtin.import_tasks: app/spotify.yml
-- ansible.builtin.import_tasks: app/vscode.yml
+- ansible.builtin.import_tasks: apps/anydesk.yml
+- ansible.builtin.import_tasks: apps/brave.yml
+- ansible.builtin.import_tasks: apps/discord.yml
+- ansible.builtin.import_tasks: apps/figma.yml
+- ansible.builtin.import_tasks: apps/filebot.yml
+- ansible.builtin.import_tasks: apps/flameshot.yml
+- ansible.builtin.import_tasks: apps/gimp.yml
+- ansible.builtin.import_tasks: apps/handbrake.yml
+- ansible.builtin.import_tasks: apps/nitrogen.yml
+- ansible.builtin.import_tasks: apps/obs.yml
+- ansible.builtin.import_tasks: apps/peek.yml
+- ansible.builtin.import_tasks: apps/qbittorrent.yml
+- ansible.builtin.import_tasks: apps/virtualbox.yml
+- ansible.builtin.import_tasks: apps/vlc.yml
+- ansible.builtin.import_tasks: apps/spotify.yml
+- ansible.builtin.import_tasks: apps/vscode.yml
