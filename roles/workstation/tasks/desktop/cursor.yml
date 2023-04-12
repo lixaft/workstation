@@ -25,3 +25,13 @@
     owner: lixaft
     group: lixaft
   tags: *tags
+
+- name: Copy Xresources file
+  ansible.builtin.copy:
+    src: .Xresources
+    dest: /home/lixaft/.Xresources
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+  tags: *tags
