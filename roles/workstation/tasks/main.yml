@@ -27,8 +27,9 @@
 - ansible.builtin.import_tasks: dev.yml
 - ansible.builtin.import_tasks: dotfiles.yml
 
-# Theme.
+# Desktop.
 - ansible.builtin.import_tasks: desktop/cursor.yml
+- ansible.builtin.import_tasks: desktop/keyboard.yml
 - ansible.builtin.import_tasks: desktop/font.yml
 - ansible.builtin.import_tasks: desktop/i3.yml
 - ansible.builtin.import_tasks: desktop/icon.yml
