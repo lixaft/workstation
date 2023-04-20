@@ -19,7 +19,7 @@
     mode: "0600"
   tags: *tags
 
-- name: Copy ssh  public key
+- name: Copy ssh public key
   ansible.builtin.copy:
     src: id_ed25519.pub
     dest: /home/lixaft/.ssh/id_ed25519.pub

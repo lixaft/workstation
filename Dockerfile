@@ -9,4 +9,3 @@ RUN : \
 
 WORKDIR /workstation
 COPY . .
-RUN ["python3", "run"]
