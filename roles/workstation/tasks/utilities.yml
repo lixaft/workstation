@@ -8,6 +8,7 @@
     - cmake
     - curl
     - dos2unix
+    - exa
     - fd-find
     - fzf
     - git

@@ -6,6 +6,7 @@
 
 # Utilities packages.
 - ansible.builtin.import_tasks: utilities.yml
+- ansible.builtin.import_tasks: starship.yml
 
 # Languages.
 - ansible.builtin.import_tasks: c.yml
@@ -15,7 +16,6 @@
 - ansible.builtin.import_tasks: rust.yml
 
 # Language packages.
-- ansible.builtin.import_tasks: cargo.yml
 - ansible.builtin.import_tasks: pip.yml
 
 # Tools.
