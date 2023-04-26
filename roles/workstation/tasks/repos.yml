@@ -1,0 +1,24 @@
+- name: Clone repositories in ~
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:{{ item }}
+    dest: /home/lixaft/{{ item.split('/') | last }}
+    update: false
+    accept_newhostkey: true
+  loop:
+    - lixaft/dotfiles
+    - lixaft/workstation
+  tags: &tags
+    - dev
+
+- name: Clone  repositories in ~/dev
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:{{ item }}
+    dest: /home/lixaft/dev/{{ item.split('/') | last }}
+    update: false
+    accept_newhostkey: true
+  loop: []
+  tags: *tags

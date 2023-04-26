@@ -12,6 +12,8 @@
     - .local/share
     - .local/state
     - .opt
+    - dev
   tags:
     - dotfiles
     - home
+    - repos

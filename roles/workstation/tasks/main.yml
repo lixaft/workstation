@@ -24,7 +24,7 @@
 - ansible.builtin.import_tasks: podman.yml
 
 # Workspace.
-- ansible.builtin.import_tasks: dev.yml
+- ansible.builtin.import_tasks: repos.yml
 - ansible.builtin.import_tasks: dotfiles.yml
 
 # Desktop.
