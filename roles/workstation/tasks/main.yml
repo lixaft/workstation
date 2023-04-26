@@ -36,6 +36,7 @@
 - ansible.builtin.import_tasks: desktop/picom.yml
 
 # Applications.
+- ansible.builtin.import_tasks: apps/alacritty.yml
 - ansible.builtin.import_tasks: apps/anydesk.yml
 - ansible.builtin.import_tasks: apps/brave.yml
 - ansible.builtin.import_tasks: apps/discord.yml
