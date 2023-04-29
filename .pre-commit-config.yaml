@@ -54,3 +54,4 @@ repos:
     rev: v6.15.0
     hooks:
       - id: ansible-lint
+        entry: env ANSIBLE_LIBRARY=./library ansible-lint
