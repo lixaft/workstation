@@ -29,12 +29,13 @@
 - ansible.builtin.import_tasks: dotfiles.yml
 
 # Desktop.
+- ansible.builtin.import_tasks: desktop/audio.yml
+- ansible.builtin.import_tasks: desktop/compositor.yml
 - ansible.builtin.import_tasks: desktop/cursor.yml
-- ansible.builtin.import_tasks: desktop/keyboard.yml
 - ansible.builtin.import_tasks: desktop/font.yml
-- ansible.builtin.import_tasks: desktop/i3.yml
 - ansible.builtin.import_tasks: desktop/icon.yml
-- ansible.builtin.import_tasks: desktop/picom.yml
+- ansible.builtin.import_tasks: desktop/keyboard.yml
+- ansible.builtin.import_tasks: desktop/wm.yml
 
 # Applications.
 - ansible.builtin.import_tasks: apps/1password.yml

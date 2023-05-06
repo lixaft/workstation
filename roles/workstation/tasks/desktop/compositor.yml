@@ -1,7 +1,7 @@
-- name: Install i3
+- name: Install picom
   ansible.builtin.apt:
-    name: i3
+    name: picom
     state: latest
   tags:
-    - i3
+    - compositor
     - desktop

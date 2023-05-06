@@ -1,7 +1,7 @@
-- name: Install picom
+- name: Install pavu control
   ansible.builtin.apt:
-    name: picom
+    name: pavucontrol
     state: latest
   tags:
-    - picom
     - desktop
+    - audio

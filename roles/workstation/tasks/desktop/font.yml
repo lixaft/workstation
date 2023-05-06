@@ -9,7 +9,7 @@
     - font
     - desktop
 
-- name: Download the FiraCode nerd font
+- name: Download nerd fonts
   ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/{{ item }}.zip
     dest: /tmp/{{ item }}.zip
@@ -21,9 +21,9 @@
     - DejaVuSansMono
   tags: *tags
 
-- name: Unarchive the font
+- name: Unarchive the fonts
   ansible.builtin.unarchive:
     src: /tmp/{{ item }}.zip
-    dest: /home/lixaft/.local/share/fonts
+    dest: /home/lixaft/.local/share/fonts/{{ item }}
   loop: *fonts
   tags: *tags
