@@ -35,3 +35,9 @@
     group: lixaft
     mode: "0644"
   tags: *tags
+
+- name: Install unclutter
+  ansible.builtin.apt:
+    name: unclutter
+    state: latest
+  tags: *tags
