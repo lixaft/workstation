@@ -1,7 +1,8 @@
 - name: Install Discord
-  ansible.builtin.apt:
-    deb: https://discord.com/api/download?platform=linux&format=deb
+  community.general.flatpak:
+    name: com.discordapp.Discord
+    remote: flathub
     state: present
   tags:
-    - discord
     - apps
+    - discord

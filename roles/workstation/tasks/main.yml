@@ -5,6 +5,7 @@
 - ansible.builtin.import_tasks: ssh.yml
 
 # Utilities packages.
+- ansible.builtin.import_tasks: flatpak.yml
 - ansible.builtin.import_tasks: utilities.yml
 - ansible.builtin.import_tasks: starship.yml
 
