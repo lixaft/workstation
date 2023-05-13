@@ -2,6 +2,12 @@
   ansible.builtin.apt:
     name: pavucontrol
     state: latest
-  tags:
+  tags: &tags
     - desktop
     - audio
+
+- name: Install playerctl
+  ansible.builtin.apt:
+    name: playerctl
+    state: latest
+    tags: *tags
