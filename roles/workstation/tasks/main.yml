@@ -15,6 +15,7 @@
 - ansible.builtin.import_tasks: node.yml
 - ansible.builtin.import_tasks: python.yml
 - ansible.builtin.import_tasks: rust.yml
+- ansible.builtin.import_tasks: zig.yml
 
 # Language packages.
 - ansible.builtin.import_tasks: pip.yml
