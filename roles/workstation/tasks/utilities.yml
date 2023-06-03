@@ -3,8 +3,10 @@
     name: "{{ item }}"
     state: latest
   loop:
+    - alien
     - aptitude
     - bat
+    - build-essential
     - cmake
     - curl
     - dos2unix
