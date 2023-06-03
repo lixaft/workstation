@@ -17,6 +17,8 @@
     virtualenv: /home/lixaft/.opt/venv
     virtualenv_command: python3 /tmp/virtualenv.pyz
   loop: &packages
+    - build
+    - hatch
     - pre-commit
     - pytest
     - tox
