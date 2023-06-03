@@ -5,6 +5,7 @@ mock_modules:
   - community.general.flatpak_remote
 
 skip_list:
+  - command-instead-of-module
   - latest[git]
   - package-latest
-  - command-instead-of-module
+  - var-naming[no-role-prefix]
