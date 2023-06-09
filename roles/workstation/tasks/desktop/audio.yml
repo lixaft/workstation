@@ -10,4 +10,4 @@
   ansible.builtin.apt:
     name: playerctl
     state: latest
-    tags: *tags
+  tags: *tags

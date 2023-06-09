@@ -7,7 +7,5 @@
       become: true
       ansible.builtin.apt:
         update_cache: true
-      tags:
-        - update
   roles:
     - workstation
