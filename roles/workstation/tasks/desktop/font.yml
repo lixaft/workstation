@@ -1,14 +1,3 @@
-- name: Create fonts directory
-  ansible.builtin.file:
-    path: /home/lixaft/.local/share/fonts
-    state: directory
-    owner: lixaft
-    group: lixaft
-    mode: "0755"
-  tags: &tags
-    - font
-    - desktop
-
 - name: Download nerd fonts
   ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/{{ item }}.zip
@@ -19,6 +8,18 @@
   loop: &fonts
     - FiraCode
     - DejaVuSansMono
+  tags: &tags
+    - font
+    - desktop
+
+- name: Create font directories.
+  ansible.builtin.file:
+    path: /home/lixaft/.local/share/fonts/{{ item }}
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  loop: *fonts
   tags: *tags
 
 - name: Unarchive the fonts
