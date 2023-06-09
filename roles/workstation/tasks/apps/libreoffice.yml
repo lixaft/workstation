@@ -1,0 +1,7 @@
+- name: Install handbrake
+  ansible.builtin.apt:
+    name: libreoffice
+    state: latest
+  tags:
+    - libreoffice
+    - apps
