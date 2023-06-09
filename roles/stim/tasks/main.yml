@@ -1,0 +1,3 @@
+# Copy files.
+- ansible.builtin.import_tasks: mount.yml
+- ansible.builtin.import_tasks: resolv.yml

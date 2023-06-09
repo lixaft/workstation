@@ -1,0 +1,9 @@
+- name: Copy the fstab file.
+  ansible.builtin.copy:
+    src: fstab
+    dest: /etc/fstab
+    owner: root
+    group: root
+    mode: "0644"
+  tags:
+    - mount
