@@ -48,6 +48,7 @@
 - ansible.builtin.import_tasks: apps/filebot.yml
 - ansible.builtin.import_tasks: apps/flameshot.yml
 - ansible.builtin.import_tasks: apps/gimp.yml
+- ansible.builtin.import_tasks: apps/gpick.yml
 - ansible.builtin.import_tasks: apps/handbrake.yml
 - ansible.builtin.import_tasks: apps/libreoffice.yml
 - ansible.builtin.import_tasks: apps/nitrogen.yml
