@@ -8,6 +8,7 @@
 - ansible.builtin.import_tasks: flatpak.yml
 - ansible.builtin.import_tasks: utilities.yml
 - ansible.builtin.import_tasks: starship.yml
+- ansible.builtin.import_tasks: github.yml
 
 # Languages.
 - ansible.builtin.import_tasks: c.yml

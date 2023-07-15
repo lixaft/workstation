@@ -1,0 +1,24 @@
+- name: Download GitHub CLI key
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    dest: /etc/apt/keyrings/githubcli.gpg
+    owner: root
+    group: root
+    mode: "644"
+  tags: &tags
+    - github
+
+- name: Add GitHub CLI repository
+  ansible.builtin.apt_repository:
+    filename: githubcli
+    repo: >-
+      deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli.gpg]
+      https://cli.github.com/packages stable main
+    state: present
+  tags: *tags
+
+- name: Install GitHub CLI
+  ansible.builtin.apt:
+    name: gh
+    state: latest
+  tags: *tags
