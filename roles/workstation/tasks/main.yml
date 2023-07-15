@@ -11,6 +11,7 @@
 
 # Languages.
 - ansible.builtin.import_tasks: c.yml
+- ansible.builtin.import_tasks: go.yml
 - ansible.builtin.import_tasks: lua.yml
 - ansible.builtin.import_tasks: node.yml
 - ansible.builtin.import_tasks: python.yml

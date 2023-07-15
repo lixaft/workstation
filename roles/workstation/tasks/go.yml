@@ -1,0 +1,39 @@
+- name: Download the go archive.
+  ansible.builtin.get_url:
+    url: https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
+    dest: /tmp/go1.20.6.linux-amd64.tar.gz
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  tags: &tags
+    - go
+
+- name: Create go directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/go
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  tags: *tags
+
+- name: Unarchive go
+  ansible.builtin.unarchive:
+    src: /tmp/go1.20.6.linux-amd64.tar.gz
+    dest: /home/lixaft/.opt
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  tags: *tags
+
+- name: Symlink go executables
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/go/bin/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop:
+    - go
+    - gofmt
+  tags: *tags
