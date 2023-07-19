@@ -1,7 +1,7 @@
 - name: Download node archive
   ansible.builtin.get_url:
-    url: https://nodejs.org/dist/v19.0.0/node-v19.0.0-linux-x64.tar.gz
-    dest: /tmp/node-v19.0.0.tar.gz
+    url: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.gz
+    dest: /tmp/node-v{{ node_version }}.tar.gz
     owner: lixaft
     group: lixaft
     mode: "0755"
@@ -19,7 +19,7 @@
 
 - name: Unarchive node
   ansible.builtin.unarchive:
-    src: /tmp/node-v19.0.0.tar.gz
+    src: /tmp/node-v{{ node_version }}.tar.gz
     dest: /home/lixaft/.opt/node
     owner: lixaft
     group: lixaft
@@ -28,7 +28,7 @@
 
 - name: Symlink node executables
   ansible.builtin.file:
-    src: /home/lixaft/.opt/node/node-v19.0.0-linux-x64/bin/{{ item }}
+    src: /home/lixaft/.opt/node/node-v{{ node_version }}-linux-x64/bin/{{ item }}
     dest: /home/lixaft/.local/bin/{{ item }}
     state: link
     owner: lixaft

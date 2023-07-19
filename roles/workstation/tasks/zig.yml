@@ -1,7 +1,7 @@
 - name: Download zig archive
   ansible.builtin.get_url:
-    url: https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
-    dest: /tmp/zig-0.10.1.tar.xz
+    url: https://ziglang.org/download/{{ zig_version }}/zig-linux-x86_64-{{ zig_version }}.tar.xz
+    dest: /tmp/zig-{{ zig_version }}.tar.xz
     owner: lixaft
     group: lixaft
     mode: "0755"
@@ -19,7 +19,7 @@
 
 - name: Unarchive zig
   ansible.builtin.unarchive:
-    src: /tmp/zig-0.10.1.tar.xz
+    src: /tmp/zig-{{ zig_version }}.tar.xz
     dest: /home/lixaft/.opt/zig
     owner: lixaft
     group: lixaft
@@ -28,7 +28,7 @@
 
 - name: Symlink zig executables
   ansible.builtin.file:
-    src: /home/lixaft/.opt/zig/zig-linux-x86_64-0.10.1/zig
+    src: /home/lixaft/.opt/zig/zig-linux-x86_64-{{ zig_version }}/zig
     dest: /home/lixaft/.local/bin/{{ item }}
     state: link
     owner: lixaft

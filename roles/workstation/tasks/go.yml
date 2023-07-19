@@ -1,7 +1,7 @@
 - name: Download the go archive.
   ansible.builtin.get_url:
-    url: https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
-    dest: /tmp/go1.20.6.linux-amd64.tar.gz
+    url: https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz
+    dest: /tmp/go{{ go_version }}.linux-amd64.tar.gz
     owner: lixaft
     group: lixaft
     mode: "0755"
@@ -19,7 +19,7 @@
 
 - name: Unarchive go
   ansible.builtin.unarchive:
-    src: /tmp/go1.20.6.linux-amd64.tar.gz
+    src: /tmp/go{{ go_version }}.linux-amd64.tar.gz
     dest: /home/lixaft/.opt
     owner: lixaft
     group: lixaft
