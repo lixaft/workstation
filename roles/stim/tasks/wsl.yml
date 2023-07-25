@@ -1,0 +1,6 @@
+- name: Install WSL utilities
+  ansible.builtin.apt:
+    name: wslu
+    state: latest
+  tags: &tags
+    - wsl
