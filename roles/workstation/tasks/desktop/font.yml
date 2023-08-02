@@ -1,13 +1,14 @@
 - name: Download nerd fonts
   ansible.builtin.get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/{{ item }}.zip
+    url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ item }}.zip
     dest: /tmp/{{ item }}.zip
     owner: lixaft
     group: lixaft
     mode: "0644"
   loop: &fonts
-    - FiraCode
     - DejaVuSansMono
+    - FiraCode
+    - Hack
   tags: &tags
     - font
     - desktop
