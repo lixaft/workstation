@@ -20,6 +20,7 @@
     - jq
     - less
     - make
+    - ncdu
     - neofetch
     - qemu-system-x86
     - rename
