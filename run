@@ -34,7 +34,7 @@ def _step(msg: str) -> None:
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--playbook", default="site.yml")
+    parser.add_argument("--playbook", default="workstation.yml")
     args, remainders = parser.parse_known_args(argv)
 
     if os.getenv("VIRTUAL_ENV") is not None:
