@@ -30,6 +30,18 @@ def _step(msg: str) -> None:
     print(msg, flush=True)
 
 
+def pip_install(bin: str, package: Package) -> None:
+    cmd = (
+        bin,
+        "install",
+        f"{package.name}=={package.version}"
+        if package.version is not None
+        else f"{package.name}",
+        "--upgrade",
+    )
+    subprocess.check_call(cmd)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--playbook", default="workstation.yml")
@@ -63,17 +75,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"{package.name}-{package.version}.dist-info",
         )
         if not os.path.exists(path):
-            _step(f"Create cache : {package.name}")
-            subprocess.check_call((
-                os.path.join(venv, "bin", "pip"),
-                "install",
-                f"{package.name}=={package.version}"
-                if package.version is not None
-                else f"{package.name}",
-                "--upgrade",
-            ))
+            _step(f"Install package : {package.name}")
+            pip_install(os.path.join(venv, "bin", "pip"), package)
 
-    return subprocess.call((
+    cmd = (
         os.path.join(venv, "bin", "ansible-playbook"),
         "--inventory",
         "hosts",
@@ -81,7 +86,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--ask-vault-pass",
         *remainders,
         args.playbook,
-    ))
+    )
+    return subprocess.call(cmd)
 
 
 if __name__ == "__main__":
