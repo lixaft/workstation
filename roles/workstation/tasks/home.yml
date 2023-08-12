@@ -10,9 +10,11 @@
     - .config
     - .local/bin
     - .local/share
+    - .local/share/applications
     - .local/state
     - .opt
     - dev
+    - stim
   tags:
     - dotfiles
     - home
