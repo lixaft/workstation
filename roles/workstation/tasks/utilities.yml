@@ -12,6 +12,7 @@
     - dos2unix
     - exa
     - fd-find
+    - ffmpeg
     - fzf
     - git
     - graphviz
@@ -21,6 +22,7 @@
     - make
     - neofetch
     - qemu-system-x86
+    - rename
     - ripgrep
     - software-properties-common
     - sqlite
