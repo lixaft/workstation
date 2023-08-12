@@ -8,9 +8,9 @@
   tags: &tags
     - zig
 
-- name: Create zig directory
+- name: Create zig unarchive directory
   ansible.builtin.file:
-    path: /home/lixaft/.opt/zig
+    path: /tmp/zig-{{ zig_version }}
     state: directory
     owner: lixaft
     group: lixaft
@@ -20,15 +20,33 @@
 - name: Unarchive zig
   ansible.builtin.unarchive:
     src: /tmp/zig-{{ zig_version }}.tar.xz
-    dest: /home/lixaft/.opt/zig
+    dest: /tmp/zig-{{ zig_version }}
     owner: lixaft
     group: lixaft
     mode: "0755"
   tags: *tags
 
+- name: Create zig directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/zig
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  tags: *tags
+
+- name: Move zig directory
+  ansible.builtin.command:
+    argv:
+      - mv
+      - /tmp/zig-{{ zig_version }}/zig-linux-x86_64-{{ zig_version }}
+      - /home/lixaft/.opt/zig/{{ zig_version }}
+    creates: /home/lixaft/.opt/zig/{{ zig_version }}
+  tags: *tags
+
 - name: Symlink zig executables
   ansible.builtin.file:
-    src: /home/lixaft/.opt/zig/zig-linux-x86_64-{{ zig_version }}/zig
+    src: /home/lixaft/.opt/zig/{{ zig_version }}/zig
     dest: /home/lixaft/.local/bin/{{ item }}
     state: link
     owner: lixaft
