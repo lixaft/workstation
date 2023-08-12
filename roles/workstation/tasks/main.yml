@@ -44,6 +44,7 @@
 - ansible.builtin.import_tasks: apps/1password.yml
 - ansible.builtin.import_tasks: apps/alacritty.yml
 - ansible.builtin.import_tasks: apps/anydesk.yml
+- ansible.builtin.import_tasks: apps/bazecore.yml
 - ansible.builtin.import_tasks: apps/brave.yml
 - ansible.builtin.import_tasks: apps/discord.yml
 - ansible.builtin.import_tasks: apps/figma.yml

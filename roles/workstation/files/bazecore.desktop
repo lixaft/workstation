@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Bazecore
+Exec=bazecore
+Terminal=false
