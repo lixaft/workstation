@@ -1,0 +1,15 @@
+- name: Download mrv2
+  ansible.builtin.get_url:
+    url: https://github.com/ggarra13/mrv2/releases/download/v{{ mrv2_version }}/mrv2-v{{ mrv2_version }}-Linux-amd64.deb
+    dest: /tmp/mrv2-v{{ mrv2_version }}-Linux-amd64.deb
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+  tags: &tags
+    - mrv2
+
+- name: Install mrv2
+  ansible.builtin.apt:
+    deb: /tmp/mrv2-v{{ mrv2_version }}-Linux-amd64.deb
+    state: present
+  tags: *tags

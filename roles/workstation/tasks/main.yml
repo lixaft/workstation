@@ -54,6 +54,7 @@
 - ansible.builtin.import_tasks: apps/gpick.yml
 - ansible.builtin.import_tasks: apps/handbrake.yml
 - ansible.builtin.import_tasks: apps/libreoffice.yml
+- ansible.builtin.import_tasks: apps/mrv2.yml
 - ansible.builtin.import_tasks: apps/nitrogen.yml
 - ansible.builtin.import_tasks: apps/obs.yml
 - ansible.builtin.import_tasks: apps/peek.yml
