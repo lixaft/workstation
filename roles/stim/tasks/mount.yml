@@ -18,11 +18,12 @@
   ansible.builtin.file:
     src: /mnt/{{ item }}
     dest: /{{ item }}
+    state: link
     owner: lixaft
     group: lixaft
     mode: "0755"
-    state: link
   loop:
+    - c
     - n
     - o
     - y
