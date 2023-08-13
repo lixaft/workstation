@@ -2,17 +2,17 @@
   become: true
   become_user: lixaft
   ansible.builtin.git:
-    repo: git@github.com:{{ item }}
+    repo: "{{ item }}"
     dest: /home/lixaft/{{ item.split('/') | last }}
     update: false
     accept_newhostkey: true
   loop:
-    - lixaft/dotfiles
-    - lixaft/workstation
+    - git@github.com:lixaft/dotfiles
+    - git@github.com:lixaft/workstation
   tags: &tags
-    - dev
+    - repos
 
-- name: Clone  repositories in ~/dev
+- name: Clone repositories in ~/dev
   become: true
   become_user: lixaft
   ansible.builtin.git:
@@ -21,4 +21,25 @@
     update: false
     accept_newhostkey: true
   loop: []
+  tags: *tags
+
+- name: Clone repositories in ~/stim
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: "{{ item }}"
+    dest: /home/lixaft/stim/{{ item.split('/') | last }}
+    update: false
+    accept_newhostkey: true
+  loop:
+    - git@bitbucket.com:/stimstudio/pipemaya
+    - git@bitbucket.com:/stimstudio/pipeqt
+    - git@bitbucket.com:/stimstudio/pipeutils
+    - git@github.com:stimstudio/autorig
+    - git@github.com:stimstudio/maya-shelves
+    - git@github.com:stimstudio/prod-builder
+    - git@github.com:stimstudio/sanity
+    - git@github.com:stimstudio/stim
+    - git@github.com:stimstudio/stim-launcher
+    - git@github.com:stimstudio/stimtools
   tags: *tags
