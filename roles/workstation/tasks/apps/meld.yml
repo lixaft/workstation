@@ -1,0 +1,7 @@
+- name: Install meld
+  ansible.builtin.apt:
+    name: meld
+    state: latest
+  tags:
+    - meld
+    - apps
