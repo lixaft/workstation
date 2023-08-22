@@ -42,16 +42,16 @@ repos:
     hooks:
       - id: flake8
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.0
+    rev: v1.5.1
     hooks:
       - id: mypy
         additional_dependencies: [types-all]
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: "v3.0.1"
+    rev: "v3.0.2"
     hooks:
       - id: prettier
   - repo: https://github.com/ansible/ansible-lint
-    rev: v6.17.2
+    rev: v6.18.0
     hooks:
       - id: ansible-lint
         entry: env ANSIBLE_LIBRARY=./library ansible-lint
