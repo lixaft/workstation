@@ -3,4 +3,4 @@
     name: podman
     state: latest
   tags:
-    - update
+    - podman
