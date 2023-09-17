@@ -1,8 +1,16 @@
-- name: Install Discord
-  community.general.flatpak:
-    name: com.discordapp.Discord
-    remote: flathub
-    state: present
-  tags:
-    - apps
+- name: Download Discord deb package
+  ansible.builtin.get_url:
+    url: https://discord.com/api/download?platform=linux&format=deb
+    dest: /tmp/discord.deb
+    owner: lixaft
+    group: lixaft
+    mode: "0700"
+  tags: &tags
     - discord
+    - apps
+
+- name: Install Discord
+  ansible.builtin.apt:
+    deb: /tmp/discord.deb
+    state: present
+  tags: *tags
