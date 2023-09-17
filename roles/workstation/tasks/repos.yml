@@ -16,11 +16,13 @@
   become: true
   become_user: lixaft
   ansible.builtin.git:
-    repo: git@github.com:{{ item }}
+    repo: "{{ item }}"
     dest: /home/lixaft/dev/{{ item.split('/') | last }}
     update: false
     accept_newhostkey: true
-  loop: []
+  loop:
+    - git@github.com:lixaft/advent-of-code
+    - git@github.com:lixaft/no-pain-no-game
   tags: *tags
 
 - name: Clone repositories in ~/stim
@@ -32,11 +34,11 @@
     update: false
     accept_newhostkey: true
   loop:
-    - git@bitbucket.com:/stimstudio/pipemaya
-    - git@bitbucket.com:/stimstudio/pipeqt
-    - git@bitbucket.com:/stimstudio/pipeutils
     - git@github.com:stimstudio/autorig
     - git@github.com:stimstudio/maya-shelves
+    - git@github.com:stimstudio/pipemaya
+    - git@github.com:stimstudio/pipeqt
+    - git@github.com:stimstudio/pipeutils
     - git@github.com:stimstudio/prod-builder
     - git@github.com:stimstudio/sanity
     - git@github.com:stimstudio/stim
