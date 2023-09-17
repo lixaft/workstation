@@ -23,6 +23,7 @@
     - make
     - ncdu
     - neofetch
+    - parallel
     - qemu-system-x86
     - rename
     - ripgrep
