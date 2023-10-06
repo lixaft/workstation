@@ -30,7 +30,10 @@
     name: "{{ item }}"
     state: latest
   loop:
+    - charliermarsh.ruff
     - enkia.tokyo-night
+    - ms-python.black-formatter
+    - ms-python.mypy-type-checker
     - ms-python.python
     - ms-python.vscode-pylance
     - ms-vscode.cpptools

@@ -37,6 +37,7 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "git.rebaseWhenSync": true,
   // Python.
   "python.languageServer": "Pylance",
   "python.formatting.provider": "autopep8",
