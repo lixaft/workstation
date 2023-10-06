@@ -23,6 +23,8 @@
   loop:
     - git@github.com:lixaft/advent-of-code
     - git@github.com:lixaft/no-pain-no-game
+    - git@github.com:python/cpython
+    - git@github.com:qt/qt5
   tags: *tags
 
 - name: Clone repositories in ~/stim
