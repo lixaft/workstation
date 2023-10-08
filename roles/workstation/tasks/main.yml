@@ -9,6 +9,7 @@
 - ansible.builtin.import_tasks: utilities.yml
 - ansible.builtin.import_tasks: starship.yml
 - ansible.builtin.import_tasks: github.yml
+- ansible.builtin.import_tasks: mongodb.yml
 
 # Languages.
 - ansible.builtin.import_tasks: c.yml
