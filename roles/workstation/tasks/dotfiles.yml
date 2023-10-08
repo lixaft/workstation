@@ -24,6 +24,7 @@
     - i3
     - nvim
     - python
+    - sqlite
     - starship
     - tmux
   changed_when: true
