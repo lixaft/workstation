@@ -38,6 +38,8 @@
     - utilities
 
 - name: Symlink utility executables
+  become: true
+  become_user: lixaft
   ansible.builtin.file:
     src: /usr/bin/{{ item.src }}
     dest: /home/lixaft/.local/bin/{{ item.dest }}

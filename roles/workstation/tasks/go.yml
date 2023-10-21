@@ -45,6 +45,8 @@
   tags: *tags
 
 - name: Symlink go executables
+  become: true
+  become_user: lixaft
   ansible.builtin.file:
     src: /home/lixaft/.opt/go/{{ go_version }}/bin/{{ item }}
     dest: /home/lixaft/.local/bin/{{ item }}

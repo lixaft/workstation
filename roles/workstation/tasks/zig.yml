@@ -45,6 +45,8 @@
   tags: *tags
 
 - name: Symlink zig executables
+  become: true
+  become_user: lixaft
   ansible.builtin.file:
     src: /home/lixaft/.opt/zig/{{ zig_version }}/zig
     dest: /home/lixaft/.local/bin/{{ item }}

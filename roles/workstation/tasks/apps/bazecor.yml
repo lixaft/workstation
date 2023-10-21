@@ -18,6 +18,8 @@
   tags: *tags
 
 - name: Symlink bazecor executable
+  become: true
+  become_user: lixaft
   ansible.builtin.file:
     src: /home/lixaft/.opt/bazecor/{{ bazecor_version }}/bazecor
     dest: /home/lixaft/.local/bin/bazecor
