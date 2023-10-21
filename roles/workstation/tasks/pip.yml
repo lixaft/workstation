@@ -15,7 +15,7 @@
   ansible.builtin.pip:
     name: "{{ item }}"
     state: latest
-    virtualenv: /home/lixaft/.opt/venv
+    virtualenv: /home/lixaft/.opt/{{ item }}
     virtualenv_command: python3 /tmp/virtualenv.pyz
   loop: &packages
     - hatch
@@ -28,7 +28,7 @@
 
 - name: Symlink executables from the virtualenv
   ansible.builtin.file:
-    src: /home/lixaft/.opt/venv/bin/{{ item }}
+    src: /home/lixaft/.opt/{{ item }}/bin/{{ item }}
     dest: /home/lixaft/.local/bin/{{ item }}
     state: link
     owner: lixaft
