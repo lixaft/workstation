@@ -61,6 +61,7 @@
 - ansible.builtin.import_tasks: apps/obs.yml
 - ansible.builtin.import_tasks: apps/peek.yml
 - ansible.builtin.import_tasks: apps/qbittorrent.yml
+- ansible.builtin.import_tasks: apps/rack.yml
 - ansible.builtin.import_tasks: apps/spotify.yml
 - ansible.builtin.import_tasks: apps/sqlitebrowser.yml
 - ansible.builtin.import_tasks: apps/virtualbox.yml
