@@ -24,3 +24,9 @@
     name: mongodb-org
     state: latest
   tags: *tags
+
+- name: Start MongoDB daemon
+  ansible.builtin.systemd:
+    name: mongod
+    state: started
+  tags: *tags
