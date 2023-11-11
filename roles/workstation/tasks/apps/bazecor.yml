@@ -10,7 +10,7 @@
 
 - name: Download the bazecor app image
   ansible.builtin.get_url:
-    url: https://github.com/Dygmalab/Bazecor/releases/download/bazecor-{{ bazecor_version }}/Bazecor-{{ bazecor_version }}-x64.AppImage
+    url: https://github.com/Dygmalab/Bazecor/releases/download/v{{ bazecor_version }}/Bazecor-{{ bazecor_version }}-x64.AppImage
     dest: /home/lixaft/.opt/bazecor/{{ bazecor_version }}/bazecor
     owner: lixaft
     group: lixaft
