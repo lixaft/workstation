@@ -19,6 +19,7 @@
     virtualenv_command: python3 /tmp/virtualenv.pyz
   loop: &packages
     - hatch
+    - nox
     - pre-commit
     - pytest
     - tox
