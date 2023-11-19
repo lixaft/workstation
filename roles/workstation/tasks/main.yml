@@ -22,6 +22,7 @@
 
 # Language packages.
 - ansible.builtin.import_tasks: pip.yml
+- ansible.builtin.import_tasks: pypi.yml
 
 # Tools.
 - ansible.builtin.import_tasks: fish.yml
