@@ -5,7 +5,7 @@
   loop:
     - g++
     - gcc
-    - libstdc++-12-dev
   tags:
     - c
+    - c++
     - cpp
