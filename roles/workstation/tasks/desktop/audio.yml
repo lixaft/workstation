@@ -6,6 +6,14 @@
     - desktop
     - audio
 
+- name: Install ALSA utilities
+  ansible.builtin.apt:
+    name:
+      - amixer
+      - alsamixer
+    state: latest
+  tags: *tags
+
 - name: Install playerctl
   ansible.builtin.apt:
     name: playerctl
