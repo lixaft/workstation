@@ -1,0 +1,23 @@
+- name: container | Install podman
+  ansible.builtin.apt:
+    name: podman
+    state: latest
+
+- name: container | Install podman-compose
+  become: true
+  become_user: lixaft
+  ansible.builtin.pip:
+    name: podman-compose
+    state: latest
+    virtualenv: /home/lixaft/.opt/podman-compose
+    virtualenv_command: /home/lixaft/.local/bin/virtualenv
+
+- name: container | Symlink podman-compose executables
+  become: true
+  become_user: lixaft
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/podman-compose/bin/podman-compose
+    dest: /home/lixaft/.local/bin/podman-compose
+    state: link
+    owner: lixaft
+    group: lixaft

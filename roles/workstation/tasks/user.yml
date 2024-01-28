@@ -1,0 +1,66 @@
+- name: user | Create group
+  ansible.builtin.group:
+    name: lixaft
+    gid: 1000
+    state: present
+
+- name: user | Create user
+  ansible.builtin.user:
+    name: lixaft
+    comment: Fabien Taxil
+    uid: 1000
+    umask: "033"
+    group: lixaft
+    create_home: true
+    home: /home/lixaft
+    state: present
+
+- name: user | Create home directories
+  ansible.builtin.file:
+    name: /home/lixaft/{{ item }}
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+  loop:
+    - .cache
+    - .config
+    - .icons
+    - .icons/default
+    - .local/bin
+    - .local/share
+    - .local/share/applications
+    - .local/state
+    - .opt
+    - dev
+    - stim
+  tags: directory
+
+- name: user | Create ssh directory
+  ansible.builtin.file:
+    path: /home/lixaft/.ssh
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0700"
+  tags: ssh
+
+- name: user | Copy ssh key
+  ansible.builtin.copy:
+    src: id_ed25519
+    dest: /home/lixaft/.ssh/id_ed25519
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0600"
+  tags: ssh
+
+- name: user | Copy ssh public key
+  ansible.builtin.copy:
+    src: id_ed25519.pub
+    dest: /home/lixaft/.ssh/id_ed25519.pub
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+  tags: ssh

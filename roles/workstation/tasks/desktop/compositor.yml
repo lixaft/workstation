@@ -1,0 +1,6 @@
+- name: compositor | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - picom

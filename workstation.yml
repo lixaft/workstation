@@ -1,0 +1,17 @@
+- name: Workstation
+  hosts: workstation
+  become: true
+  become_user: root
+  environment: "{{ envs }}"
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+      tags: [always]
+  post_tasks:
+    - name: Clean apt
+      ansible.builtin.apt:
+        autoremove: true
+      tags: [always]
+  roles:
+    - workstation

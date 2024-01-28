@@ -1,0 +1,39 @@
+- name: ocaml | Create Opam directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/opam/{{ opam_version }}
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: ocaml | Download Opam installer
+  ansible.builtin.get_url:
+    url: https://github.com/ocaml/opam/releases/download/{{ opam_version }}/opam-{{ opam_version }}-x86_64-linux
+    dest: /home/lixaft/.opt/opam/{{ opam_version }}/opam
+    owner: lixaft
+    group: lixaft
+    mode: "0700"
+  register: download_result
+
+- name: ocaml | Symlink Opam executables
+  become: true
+  become_user: lixaft
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/opam/{{ opam_version }}/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop:
+    - opam
+
+- name: ocaml | Initialize Opam
+  ansible.builtin.command:
+    cmd: /home/lixaft/.local/bin/opam init --yes
+
+- name: ocaml | Install development packages
+  ansible.builtin.command:
+    cmd: /home/lixaft/.local/bin/opam install -y {{ item }}
+  loop:
+    - dune
+    - utop

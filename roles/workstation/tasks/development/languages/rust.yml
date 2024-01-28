@@ -1,0 +1,24 @@
+- name: rust | Download rustup
+  ansible.builtin.get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+    owner: lixaft
+    group: lixaft
+    mode: "0700"
+  register: download_result
+
+- name: rust | Install rustup
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: /tmp/rustup.sh -y --no-modify-path
+  when: download_result is succeeded
+  changed_when: true
+
+- name: rust | Configure the default toolchain
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: /home/lixaft/.cargo/bin/rustup default stable
+  when: download_result is succeeded
+  changed_when: true

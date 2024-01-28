@@ -1,0 +1,35 @@
+- name: cursor | Download phinger archive
+  ansible.builtin.get_url:
+    url: https://github.com/phisch/phinger-cursors/releases/latest/download/phinger-cursors-variants.tar.bz2
+    dest: /tmp/phinger_cursors.tar.bz2
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: cursor | Unarchive phinger
+  ansible.builtin.unarchive:
+    src: /tmp/phinger_cursors.tar.bz2
+    dest: /home/lixaft/.icons
+    owner: lixaft
+    group: lixaft
+
+- name: cursor | Setup Xresources file
+  ansible.builtin.lineinfile:
+    path: /home/lixaft/.Xresources
+    create: true
+    regex: ^%{{ item.key }}
+    line: "{{ item.key }}: {{ item.value }}"
+    state: present
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+  loop: "{{ data | dict2items }}"
+  vars:
+    data:
+      Xcursor.theme: phinger-cursors
+      Xcursor.size: 36
+
+- name: cursor | Install unclutter
+  ansible.builtin.apt:
+    name: unclutter
+    state: latest

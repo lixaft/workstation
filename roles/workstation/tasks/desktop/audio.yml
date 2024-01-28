@@ -1,0 +1,7 @@
+- name: audio | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - pavucontrol
+    - playerctl

@@ -1,0 +1,10 @@
+- name: flatpak | Install package
+  ansible.builtin.apt:
+    name: flatpak
+    state: latest
+
+- name: flatpak | Add Flathub repository
+  community.general.flatpak_remote:
+    name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    state: present

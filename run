@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import urllib.request
+from typing import TYPE_CHECKING
+from typing import NoReturn
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+
+CACHE_DIR = os.path.join(os.path.dirname(__file__), ".cache")
+
+VENV_URL = "https://bootstrap.pypa.io/virtualenv.pyz"
+VENV_PYZ = os.path.join(CACHE_DIR, "virtualenv.pyz")
+VENV_DIR = os.path.join(CACHE_DIR, "venv")
+
+PACKAGES = frozenset(("ansible",))
+
+
+def _msg(s: str) -> None:
+    sys.stdout.write(f"\r\033[0K{s}")
+    sys.stdout.flush()
+
+
+def main(argv: Sequence[str] | None = None) -> NoReturn:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--playbook", default="workstation.yml")
+    parser.add_argument("--rebuild-cache", action="store_true")
+    args, remainders = parser.parse_known_args(argv)
+
+    if args.rebuild_cache:
+        shutil.rmtree(CACHE_DIR, ignore_errors=True)
+    os.makedirs(CACHE_DIR, exist_ok=True)
+
+    if not os.path.exists(VENV_DIR):
+        if not os.path.exists(VENV_PYZ):
+            _msg(f"Downloading {VENV_URL}...")
+            urllib.request.urlretrieve(VENV_URL, VENV_PYZ)
+
+        _msg("Creating virtualenv...")
+        subprocess.check_call(
+            ("python3", VENV_PYZ, VENV_DIR),
+            stdout=subprocess.DEVNULL,
+        )
+
+        for package in PACKAGES:
+            _msg(f"Installing {package}...")
+            subprocess.check_call(
+                (os.path.join(VENV_DIR, "bin/pip"), "install", package),
+                stdout=subprocess.DEVNULL,
+            )
+
+    _msg("")
+
+    cmd = (
+        os.path.join(VENV_DIR, "bin/ansible-playbook"),
+        "--inventory",
+        "hosts.yml",
+        "--ask-become-pass",
+        "--ask-vault-pass",
+        *remainders,
+        args.playbook,
+    )
+    os.execvp(cmd[0], cmd)
+
+
+if __name__ == "__main__":
+    main()

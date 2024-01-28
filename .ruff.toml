@@ -1,0 +1,27 @@
+line-length = 79
+target-version = "py38"
+
+[lint]
+select = ["ALL"]
+ignore = [
+    "ANN101",
+    "ANN401",
+    "COM812",
+    "D",
+    "ISC001",
+    "PTH",
+    "S310",
+    "S603",
+    "S606",
+    "TD002",
+    "TD003",
+]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.isort]
+force-single-line = true
+
+[format]
+preview = true

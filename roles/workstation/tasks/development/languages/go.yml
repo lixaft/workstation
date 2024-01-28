@@ -1,0 +1,52 @@
+- name: go | Download archive
+  ansible.builtin.get_url:
+    url: https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz
+    dest: /tmp/go{{ go_version }}.linux-amd64.tar.gz
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: go | Create unarchive directory
+  ansible.builtin.file:
+    path: /tmp/go{{ go_version }}.linux-amd64
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: go | Unarchive
+  ansible.builtin.unarchive:
+    src: /tmp/go{{ go_version }}.linux-amd64.tar.gz
+    dest: /tmp/go{{ go_version }}.linux-amd64
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: go | Create intsall directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/go
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: go | Move to intstall directory
+  ansible.builtin.command:
+    argv:
+      - mv
+      - /tmp/go{{ go_version }}.linux-amd64/go
+      - /home/lixaft/.opt/go/{{ go_version }}
+    creates: /home/lixaft/.opt/go/{{ go_version }}
+
+- name: go | Symlink executables
+  become: true
+  become_user: lixaft
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/go/{{ go_version }}/bin/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop:
+    - go
+    - gofmt

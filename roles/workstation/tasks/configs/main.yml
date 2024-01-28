@@ -1,0 +1,9 @@
+- name: Dotfiles tasks
+  ansible.builtin.import_tasks:
+    file: dotfiles.yml
+  tags: [dotfiles]
+
+- name: Workstation tasks
+  ansible.builtin.import_tasks:
+    file: workstation.yml
+  tags: [workstation]

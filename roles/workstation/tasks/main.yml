@@ -1,0 +1,24 @@
+- name: User tasks
+  ansible.builtin.import_tasks:
+    file: user.yml
+  tags: [user]
+
+- name: System tasks
+  ansible.builtin.import_tasks:
+    file: system/main.yml
+  tags: [system]
+
+- name: Development tasks
+  ansible.builtin.import_tasks:
+    file: development/main.yml
+  tags: [development]
+
+- name: Config tasks
+  ansible.builtin.import_tasks:
+    file: configs/main.yml
+  tags: [configs]
+
+- name: Desktop tasks
+  ansible.builtin.import_tasks:
+    file: desktop/main.yml
+  tags: [desktop]

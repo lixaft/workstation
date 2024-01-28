@@ -1,0 +1,14 @@
+- name: lua | Install language packages
+  ansible.builtin.apt:
+    name:
+      - "{{ item }}"
+      - "lib{{ item }}-dev"
+    state: latest
+  loop:
+    - lua5.3
+    - lua5.4
+
+- name: lua | Install package manager
+  ansible.builtin.apt:
+    name: luarocks
+    state: latest

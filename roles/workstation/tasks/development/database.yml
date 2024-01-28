@@ -1,0 +1,15 @@
+- name: database | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - mongodb-org
+    - postgresql
+    - sqlite
+
+- name: database | Start MongoDB daemon
+  ansible.builtin.systemd:
+    name: mongod
+    state: started
+  # Does not work in container.
+  ignore_errors: true

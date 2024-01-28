@@ -1,0 +1,6 @@
+- name: window_manager | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - i3

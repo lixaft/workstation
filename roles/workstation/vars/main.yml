@@ -1,0 +1,4 @@
+go_version: 1.21.6
+node_version: 21.6.1
+opam_version: 2.1.5
+zig_version: 0.11.0
