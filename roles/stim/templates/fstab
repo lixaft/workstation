@@ -1,0 +1,4 @@
+//s00win01.stimstudio.local/plugins$       /mnt/o cifs uid=1000,dir_mode=0755,file_mode=0644,user=ftaxil,pass={{ stim_password }} 0 0
+//s00win01.stimstudio.local/share$         /mnt/n cifs uid=1000,dir_mode=0755,file_mode=0644,user=ftaxil,pass={{ stim_password }} 0 0
+//s00win01.stimstudio.local/software$      /mnt/z cifs uid=1000,dir_mode=0755,file_mode=0644,user=ftaxil,pass={{ stim_password }} 0 0
+//s00win01.stimstudio.local/stim-projects$ /mnt/y cifs uid=1000,dir_mode=0755,file_mode=0644,user=ftaxil,pass={{ stim_password }} 0 0

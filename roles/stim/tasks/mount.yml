@@ -1,20 +1,17 @@
-- name: Install cifs utils
+- name: mount | Install cifs utils
   ansible.builtin.apt:
     name: cifs-utils
     state: present
-  tags: &tags
-    - mount
 
-- name: Copy the fstab file.
-  ansible.builtin.copy:
+- name: mount | Copy the fstab file.
+  ansible.builtin.template:
     src: fstab
     dest: /etc/fstab
     owner: root
     group: root
     mode: "0644"
-  tags: *tags
 
-- name: Symlink drives in /
+- name: mount | Symlink drives in /
   ansible.builtin.file:
     src: /mnt/{{ item }}
     dest: /{{ item }}
@@ -28,4 +25,3 @@
     - o
     - y
     - z
-  tags: *tags

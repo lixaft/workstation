@@ -1,0 +1,34 @@
+- name: Audio tasks
+  ansible.builtin.import_tasks:
+    file: audio.yml
+  tags: [audio]
+
+- name: Cursor tasks
+  ansible.builtin.import_tasks:
+    file: cursor.yml
+  tags: [cursor]
+
+- name: Font tasks
+  ansible.builtin.import_tasks:
+    file: font.yml
+  tags: [font]
+
+- name: Keyboard tasks
+  ansible.builtin.import_tasks:
+    file: keyboard.yml
+  tags: [keyboard]
+
+- name: Wallpaper tasks
+  ansible.builtin.import_tasks:
+    file: wallpaper.yml
+  tags: [wallpaper]
+
+- name: Window manager tasks
+  ansible.builtin.import_tasks:
+    file: window_manager.yml
+  tags: [window_manager, wm]
+
+- name: Compositor tasks
+  ansible.builtin.import_tasks:
+    file: compositor.yml
+  tags: [compositor]

@@ -1,11 +1,15 @@
----
 mock_modules:
   - community.general.cargo
   - community.general.flatpak
   - community.general.flatpak_remote
 
+enable_list:
+  - name[prefix]
+
 skip_list:
   - command-instead-of-module
+  - ignore-errors
   - latest[git]
+  - no-changed-when
   - package-latest
   - var-naming[no-role-prefix]

@@ -1,7 +1,0 @@
-- name: Install flameshot
-  ansible.builtin.apt:
-    name: flameshot
-    state: latest
-  tags:
-    - flameshot
-    - apps

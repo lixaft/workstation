@@ -2,15 +2,17 @@
   hosts: workstation
   become: true
   become_user: root
-  environment:
-    XDG_CACHE_HOME: "/home/lixaft/.cache"
-    XDG_CONFIG_HOME: "/home/lixaft/.config"
-    XDG_DATA_HOME: "/home/lixaft/.local/share"
-    XDG_STATE_HOME: "/home/lixaft/.local/state"
+  environment: "{{ envs }}"
   pre_tasks:
     - name: Update apt cache
-      become: true
       ansible.builtin.apt:
         update_cache: true
+      tags: [always]
+  post_tasks:
+    - name: Clean apt
+      ansible.builtin.apt:
+        autoremove: true
+      tags: [always]
   roles:
-    - workstation
+    - role: workstation
+      tags: [workstation]

@@ -1,9 +1,0 @@
-# TODO: need to find a way to install the package on ubuntu
-- name: Install Alacritty
-  ansible.builtin.apt:
-    name: alacritty
-    state: latest
-  tags: &tags
-    - alacritty
-    - apps
-  failed_when: false

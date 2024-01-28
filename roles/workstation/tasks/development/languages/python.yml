@@ -1,0 +1,85 @@
+- name: python | Install base packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - python2-dev
+    - python3-dev
+    - python3-distutils
+    - python3-venv
+
+- name: python | Install other versions
+  ansible.builtin.apt:
+    name:
+      - "{{ item }}-dev"
+      - "{{ item }}-distutils"
+    state: latest
+  loop:
+    - python3.7
+    - python3.8
+    - python3.9
+    - python3.10
+    - python3.11
+    - python3.12
+
+- name: python | Install pypy packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - pypy
+    - pypy3
+
+- name: python | Download virtualenv
+  ansible.builtin.get_url:
+    url: https://bootstrap.pypa.io/virtualenv.pyz
+    dest: /tmp/virtualenv.pyz
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: python | Install virtualenv
+  become: true
+  become_user: lixaft
+  ansible.builtin.pip:
+    name: virtualenv
+    state: latest
+    virtualenv: /home/lixaft/.opt/virtualenv
+    virtualenv_command: python3 /tmp/virtualenv.pyz
+
+- name: python | Symlink virtualenv executable
+  become: true
+  become_user: lixaft
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/virtualenv/bin/virtualenv
+    dest: /home/lixaft/.local/bin/virtualenv
+    state: link
+    owner: lixaft
+    group: lixaft
+
+- name: python | Install development packages
+  become: true
+  become_user: lixaft
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: latest
+    virtualenv: /home/lixaft/.opt/{{ item }}
+    virtualenv_command: /home/lixaft/.local/bin/virtualenv
+  loop: &packages
+    - hatch
+    - mypy
+    - nox
+    - pre-commit
+    - pytest
+    - ruff
+    - tox
+    - twine
+
+- name: python | Copy PyPI configuration file
+  ansible.builtin.copy:
+    src: .pypirc
+    dest: /home/lixaft/.pypirc
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0600"

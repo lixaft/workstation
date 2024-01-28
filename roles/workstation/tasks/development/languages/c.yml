@@ -1,7 +1,7 @@
-- name: audio | Install packages
+- name: c | Install C/C++ compilers
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
   loop:
-    - pavucontrol
-    - playerctl
+    - g++
+    - gcc

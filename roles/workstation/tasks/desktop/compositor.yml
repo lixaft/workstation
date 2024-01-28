@@ -1,7 +1,6 @@
-- name: Install picom
+- name: compositor | Install packages
   ansible.builtin.apt:
-    name: picom
+    name: "{{ item }}"
     state: latest
-  tags:
-    - compositor
-    - desktop
+  loop:
+    - picom

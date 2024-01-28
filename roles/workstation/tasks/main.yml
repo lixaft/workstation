@@ -1,70 +1,29 @@
-# User.
-- ansible.builtin.import_tasks: user.yml
-- ansible.builtin.import_tasks: sudo.yml
-- ansible.builtin.import_tasks: home.yml
-- ansible.builtin.import_tasks: ssh.yml
+- name: User tasks
+  ansible.builtin.import_tasks:
+    file: user.yml
+  tags: [user]
 
-# Utilities packages.
-- ansible.builtin.import_tasks: flatpak.yml
-- ansible.builtin.import_tasks: utilities.yml
-- ansible.builtin.import_tasks: starship.yml
-- ansible.builtin.import_tasks: github.yml
-- ansible.builtin.import_tasks: mongodb.yml
+- name: System tasks
+  ansible.builtin.import_tasks:
+    file: system/main.yml
+  tags: [system]
 
-# Languages.
-- ansible.builtin.import_tasks: c.yml
-- ansible.builtin.import_tasks: go.yml
-- ansible.builtin.import_tasks: lua.yml
-- ansible.builtin.import_tasks: node.yml
-- ansible.builtin.import_tasks: python.yml
-- ansible.builtin.import_tasks: rust.yml
-- ansible.builtin.import_tasks: zig.yml
+- name: Development tasks
+  ansible.builtin.import_tasks:
+    file: development/main.yml
+  tags: [development]
 
-# Language packages.
-- ansible.builtin.import_tasks: pip.yml
-- ansible.builtin.import_tasks: pypi.yml
+- name: Config tasks
+  ansible.builtin.import_tasks:
+    file: configs/main.yml
+  tags: [configs]
 
-# Tools.
-- ansible.builtin.import_tasks: fish.yml
-- ansible.builtin.import_tasks: nvim.yml
-- ansible.builtin.import_tasks: podman.yml
+- name: Desktop tasks
+  ansible.builtin.import_tasks:
+    file: desktop/main.yml
+  tags: [desktop]
 
-# Workspace.
-- ansible.builtin.import_tasks: repos.yml
-- ansible.builtin.import_tasks: dotfiles.yml
-
-# Desktop.
-- ansible.builtin.import_tasks: desktop/audio.yml
-- ansible.builtin.import_tasks: desktop/compositor.yml
-- ansible.builtin.import_tasks: desktop/cursor.yml
-- ansible.builtin.import_tasks: desktop/font.yml
-- ansible.builtin.import_tasks: desktop/icon.yml
-- ansible.builtin.import_tasks: desktop/keyboard.yml
-- ansible.builtin.import_tasks: desktop/wm.yml
-
-# Applications.
-- ansible.builtin.import_tasks: apps/1password.yml
-- ansible.builtin.import_tasks: apps/alacritty.yml
-- ansible.builtin.import_tasks: apps/anydesk.yml
-- ansible.builtin.import_tasks: apps/bazecor.yml
-- ansible.builtin.import_tasks: apps/brave.yml
-- ansible.builtin.import_tasks: apps/discord.yml
-- ansible.builtin.import_tasks: apps/figma.yml
-- ansible.builtin.import_tasks: apps/filebot.yml
-- ansible.builtin.import_tasks: apps/flameshot.yml
-- ansible.builtin.import_tasks: apps/gimp.yml
-- ansible.builtin.import_tasks: apps/gpick.yml
-- ansible.builtin.import_tasks: apps/handbrake.yml
-- ansible.builtin.import_tasks: apps/libreoffice.yml
-- ansible.builtin.import_tasks: apps/meld.yml
-- ansible.builtin.import_tasks: apps/mrv2.yml
-- ansible.builtin.import_tasks: apps/nitrogen.yml
-- ansible.builtin.import_tasks: apps/obs.yml
-- ansible.builtin.import_tasks: apps/peek.yml
-- ansible.builtin.import_tasks: apps/qbittorrent.yml
-- ansible.builtin.import_tasks: apps/rack.yml
-- ansible.builtin.import_tasks: apps/spotify.yml
-- ansible.builtin.import_tasks: apps/sqlitebrowser.yml
-- ansible.builtin.import_tasks: apps/virtualbox.yml
-- ansible.builtin.import_tasks: apps/vlc.yml
-- ansible.builtin.import_tasks: apps/vscode.yml
+- name: Application tasks
+  ansible.builtin.import_tasks:
+    file: applications/main.yml
+  tags: [applications]

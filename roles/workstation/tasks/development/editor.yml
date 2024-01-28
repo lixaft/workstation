@@ -1,0 +1,16 @@
+- name: editor | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - nano
+    - neovim
+
+- name: editor | Clone lazy.nvim repository
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: https://github.com/folke/lazy.nvim
+    dest: /home/lixaft/.local/share/nvim/lazy/lazy.nvim
+    version: stable
+    update: false

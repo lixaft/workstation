@@ -1,4 +1,14 @@
-# Copy files.
-- ansible.builtin.import_tasks: mount.yml
-- ansible.builtin.import_tasks: resolv.yml
-- ansible.builtin.import_tasks: wsl.yml
+- name: Mount tasks
+  ansible.builtin.import_tasks:
+    file: mount.yml
+  tags: [mount]
+
+- name: Resolv tasks
+  ansible.builtin.import_tasks:
+    file: resolv.yml
+  tags: [resolv]
+
+- name: Wsl tasks
+  ansible.builtin.import_tasks:
+    file: wsl.yml
+  tags: [wsl]

@@ -7,88 +7,66 @@ import shutil
 import subprocess
 import sys
 import urllib.request
-from typing import NamedTuple
-from typing import Sequence
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+    from typing import NoReturn
+
+CACHE_DIR = os.path.join(os.path.dirname(__file__), ".cache")
+
+VENV_URL = "https://bootstrap.pypa.io/virtualenv.pyz"
+VENV_PYZ = os.path.join(CACHE_DIR, "virtualenv.pyz")
+VENV_DIR = os.path.join(CACHE_DIR, "venv")
+
+PACKAGES = frozenset(("ansible",))
 
 
-class Package(NamedTuple):
-    name: str
-    version: str | None
+def _msg(s: str) -> None:
+    sys.stdout.write(f"\r\033[0K{s}")
+    sys.stdout.flush()
 
 
-CACHE_DIR = os.path.join(
-    os.getenv("XDG_CACHE_HOME", os.path.expanduser("~/.cache")),
-    "workstation",
-)
-
-PACKAGES = frozenset((Package("ansible", None),))
-
-
-def _step(msg: str) -> None:
-    msg = f"PRE [{msg}] "
-    msg += "*" * (shutil.get_terminal_size().columns - len(msg))
-    print(msg, flush=True)
-
-
-def pip_install(bin: str, package: Package) -> None:
-    cmd = (
-        bin,
-        "install",
-        f"{package.name}=={package.version}"
-        if package.version is not None
-        else f"{package.name}",
-        "--upgrade",
-    )
-    subprocess.check_call(cmd)
-
-
-def main(argv: Sequence[str] | None = None) -> int:
+def main(argv: Sequence[str] | None = None) -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--playbook", default="workstation.yml")
+    parser.add_argument("--rebuild-cache", action="store_true")
     args, remainders = parser.parse_known_args(argv)
 
-    if os.getenv("VIRTUAL_ENV") is not None:
-        raise SystemExit("run should be executed outside of any virtualenv")
-
+    if args.rebuild_cache:
+        shutil.rmtree(CACHE_DIR, ignore_errors=True)
     os.makedirs(CACHE_DIR, exist_ok=True)
 
-    zipapp = os.path.join(CACHE_DIR, "virtualenv.pyz")
-    if not os.path.exists(zipapp):
-        _step("Download virtualenv zipapp")
-        urllib.request.urlretrieve(
-            "https://bootstrap.pypa.io/virtualenv.pyz",
-            zipapp,
-        )
-        print("\033[32mok\033[m")
+    if not os.path.exists(VENV_DIR):
+        if not os.path.exists(VENV_PYZ):
+            _msg(f"Downloading {VENV_URL}...")
+            urllib.request.urlretrieve(VENV_URL, VENV_PYZ)
 
-    venv = os.path.join(CACHE_DIR, "venv")
-    if not os.path.exists(venv):
-        _step("Create the virtualenv")
-        subprocess.run(("python3", zipapp, venv), check=True)
-
-    for package in PACKAGES:
-        path = os.path.join(
-            venv,
-            "lib",
-            f"python{sys.version_info.major}.{sys.version_info.minor}",
-            "site-packages",
-            f"{package.name}-{package.version}.dist-info",
+        _msg("Creating virtualenv...")
+        subprocess.check_call(
+            ("python3", VENV_PYZ, VENV_DIR),
+            stdout=subprocess.DEVNULL,
         )
-        if not os.path.exists(path):
-            _step(f"Install package : {package.name}")
-            pip_install(os.path.join(venv, "bin", "pip"), package)
+
+        for package in PACKAGES:
+            _msg(f"Installing {package}...")
+            subprocess.check_call(
+                (os.path.join(VENV_DIR, "bin/pip"), "install", package),
+                stdout=subprocess.DEVNULL,
+            )
+
+    _msg("")
 
     cmd = (
-        os.path.join(venv, "bin", "ansible-playbook"),
-        "--inventory",
-        "hosts",
+        os.path.join(VENV_DIR, "bin/ansible-playbook"),
+        "--inventory=hosts.yml",
         "--ask-become-pass",
         "--ask-vault-pass",
         *remainders,
         args.playbook,
     )
-    return subprocess.call(cmd)
+    os.execvp(cmd[0], cmd)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()

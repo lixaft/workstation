@@ -1,0 +1,52 @@
+- name: javascript | Download node archive
+  ansible.builtin.get_url:
+    url: https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-x64.tar.gz
+    dest: /tmp/node-v{{ node_version }}.tar.gz
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: javascript | Create node unarchive directory
+  ansible.builtin.file:
+    path: /tmp/node-v{{ node_version }}
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: javascript | Unarchive node
+  ansible.builtin.unarchive:
+    src: /tmp/node-v{{ node_version }}.tar.gz
+    dest: /tmp/node-v{{ node_version }}
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: javascript | Create node install directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/node
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: javascript | Move node to install directory
+  ansible.builtin.command:
+    argv:
+      - mv
+      - /tmp/node-v{{ node_version }}/node-v{{ node_version }}-linux-x64
+      - /home/lixaft/.opt/node/{{ node_version }}
+    creates: /home/lixaft/.opt/node/{{ node_version }}
+
+- name: javascript | Symlink node executables
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/node/{{ node_version }}/bin/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop:
+    - node
+    - npm
+    - npx
+    - corepack

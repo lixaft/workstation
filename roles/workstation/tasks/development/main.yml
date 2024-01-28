@@ -1,0 +1,29 @@
+- name: Utility tasks
+  ansible.builtin.import_tasks:
+    file: utility.yml
+  tags: [utility]
+
+- name: Language tasks
+  ansible.builtin.import_tasks:
+    file: languages/main.yml
+  tags: [languages]
+
+- name: Container tasks
+  ansible.builtin.import_tasks:
+    file: container.yml
+  tags: [container, podman]
+
+- name: Database tasks
+  ansible.builtin.import_tasks:
+    file: database.yml
+  tags: [database]
+
+- name: Editor tasks
+  ansible.builtin.import_tasks:
+    file: editor.yml
+  tags: [editor, neovim, nvim]
+
+- name: Shell tasks
+  ansible.builtin.import_tasks:
+    file: shell.yml
+  tags: [shell, fish]

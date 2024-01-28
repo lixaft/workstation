@@ -1,7 +1,0 @@
-- name: Install gimp
-  ansible.builtin.apt:
-    name: gimp
-    state: latest
-  tags:
-    - gimp
-    - apps

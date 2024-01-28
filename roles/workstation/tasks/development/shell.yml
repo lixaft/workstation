@@ -1,0 +1,21 @@
+- name: shell | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - bash
+    - fish
+    - zsh
+
+- name: shell | Setup the default user shell
+  ansible.builtin.user:
+    name: lixaft
+    shell: /usr/bin/fish
+
+- name: shell | Install starship
+  become: true
+  become_user: lixaft
+  community.general.cargo:
+    name: starship
+    state: latest
+    executable: /home/lixaft/.cargo/bin/cargo

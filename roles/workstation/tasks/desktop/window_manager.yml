@@ -1,7 +1,6 @@
-- name: audio | Install packages
+- name: window_manager | Install packages
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
   loop:
-    - pavucontrol
-    - playerctl
+    - i3

@@ -1,4 +1,4 @@
-- name: Install keyboard layout
+- name: keyboard | Install custom layout
   ansible.builtin.copy:
     src: keyboard
     dest: /usr/share/X11/xkb/symbols/lixaft
@@ -6,5 +6,3 @@
     owner: root
     group: root
     mode: "0644"
-  tags:
-    - keyboard

@@ -1,0 +1,5 @@
+envs:
+  XDG_CACHE_HOME: /home/lixaft/.cache
+  XDG_CONFIG_HOME: /home/lixaft/.config
+  XDG_DATA_HOME: /home/lixaft/.local/share
+  XDG_STATE_HOME: /home/lixaft/.local/state

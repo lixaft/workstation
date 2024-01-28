@@ -1,9 +1,12 @@
-- name: Copy the resolv.conf file.
-  ansible.builtin.copy:
-    src: resolv.conf
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
+- name: resolv | Setup resolv.conf
+  ansible.builtin.lineinfile:
+    path: /etc/resolv.conf
+    create: true
+    line: "{{ item }}"
+    state: present
+    owner: lixaft
+    group: lixaft
     mode: "0644"
-  tags:
-    - resolv
+  loop:
+    - nameserver 172.16.1.100
+    - nameserver 192.168.2.254

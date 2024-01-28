@@ -1,0 +1,25 @@
+- name: common | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - 1password
+    - alacritty
+    - anydesk
+    - brave-browser
+    - filebot
+    - firefox
+    - flameshot
+    - gimp
+    - gpick
+    - handbrake
+    - libreoffice
+    - meld
+    - obs-studio
+    - peek
+    - qbittorrent
+    - spotify-client
+    - virtualbox
+    - vlc
+  # Alacritty is not available in the ubuntu repository.
+  ignore_errors: true

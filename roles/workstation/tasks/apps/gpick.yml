@@ -1,6 +1,0 @@
-- name: Install gpick
-  ansible.builtin.apt:
-    name: gpick
-    state: latest
-  tags:
-    - gpick

@@ -1,0 +1,49 @@
+- name: utility | Install packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - alien
+    - aptitude
+    - bat
+    - build-essential
+    - cmake
+    - curl
+    - dos2unix
+    - exa
+    - fd-find
+    - ffmpeg
+    - fzf
+    - gh
+    - git
+    - graphviz
+    - htop
+    - jq
+    - less
+    - make
+    - neofetch
+    - parallel
+    - qemu-system-x86
+    - rename
+    - ripgrep
+    - software-properties-common
+    - stow
+    - tmux
+    - tree
+    - valgrind
+    - wget
+
+- name: utility | Alias executables
+  ansible.builtin.file:
+    src: /usr/bin/{{ item.src }}
+    dest: /home/lixaft/.local/bin/{{ item.dest }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop:
+    - src: fdfind
+      dest: fd
+    - src: batcat
+      dest: bat
+  loop_control:
+    label: "{{ item.dest }}"

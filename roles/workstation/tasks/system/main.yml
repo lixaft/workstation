@@ -1,0 +1,14 @@
+- name: APT tasks
+  ansible.builtin.import_tasks:
+    file: apt.yml
+  tags: [apt]
+
+- name: Flatpak tasks
+  ansible.builtin.import_tasks:
+    file: flatpak.yml
+  tags: [flatpak]
+
+- name: Sudo tasks
+  ansible.builtin.import_tasks:
+    file: sudo.yml
+  tags: [sudo]

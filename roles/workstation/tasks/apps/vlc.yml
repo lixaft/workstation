@@ -1,7 +1,0 @@
-- name: Install VLC
-  ansible.builtin.apt:
-    name: vlc
-    state: latest
-  tags:
-    - vlc
-    - apps

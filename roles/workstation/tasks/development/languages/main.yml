@@ -1,0 +1,39 @@
+- name: C tasks
+  ansible.builtin.import_tasks:
+    file: c.yml
+  tags: [c, cpp, c++]
+
+- name: Go tasks
+  ansible.builtin.import_tasks:
+    file: go.yml
+  tags: [go]
+
+- name: JavaScript tasks
+  ansible.builtin.import_tasks:
+    file: javascript.yml
+  tags: [javascript, typescript, js, ts, node]
+
+- name: Lua tasks
+  ansible.builtin.import_tasks:
+    file: lua.yml
+  tags: [lua, luarocks]
+
+- name: Ocaml tasks
+  ansible.builtin.import_tasks:
+    file: ocaml.yml
+  tags: [ocaml, opam]
+
+- name: Python tasks
+  ansible.builtin.import_tasks:
+    file: python.yml
+  tags: [python, pypy, virtualenv]
+
+- name: Rust tasks
+  ansible.builtin.import_tasks:
+    file: rust.yml
+  tags: [rust, rustup, cargo]
+
+- name: Zig tasks
+  ansible.builtin.import_tasks:
+    file: zig.yml
+  tags: [zig]

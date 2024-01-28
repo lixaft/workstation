@@ -1,0 +1,8 @@
+- name: workstation | Clone repostory
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:lixaft/workstation
+    dest: /home/lixaft/workstation
+    update: false
+    accept_newhostkey: true

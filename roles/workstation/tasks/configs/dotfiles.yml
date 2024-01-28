@@ -1,0 +1,44 @@
+- name: dotfiles | Clone repository
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:lixaft/dotfiles
+    dest: /home/lixaft/dotfiles
+    update: false
+    accept_newhostkey: true
+
+- name: dotfiles | Remove previous symlinks
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: stow -D {{ item }}
+    chdir: /home/lixaft/dotfiles
+  loop: &stow
+    - alacritty
+    - bat
+    - bin
+    - fish
+    - git
+    - i3
+    - nvim
+    - python
+    - sqlite
+    - starship
+    - tmux
+  changed_when: true
+
+- name: dotfiles | Create symlinks
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: stow {{ item }}
+    chdir: /home/lixaft/dotfiles
+  loop: *stow
+  changed_when: true
+
+- name: dotfiles | Build bat cache
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: batcat cache --build
+  changed_when: true
