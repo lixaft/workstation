@@ -1,0 +1,19 @@
+- name: Common tasks
+  ansible.builtin.import_tasks:
+    file: common.yml
+  tags: [common]
+
+- name: Bazecor tasks
+  ansible.builtin.import_tasks:
+    file: bazecor.yml
+  tags: [bazecor]
+
+- name: Mrv2 tasks
+  ansible.builtin.import_tasks:
+    file: common.yml
+  tags: [common]
+
+- name: Rack tasks
+  ansible.builtin.import_tasks:
+    file: rack.yml
+  tags: [rack]

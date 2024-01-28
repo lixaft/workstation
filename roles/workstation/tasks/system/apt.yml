@@ -10,6 +10,10 @@
     label: "{{ item.filename }}"
   vars:
     data:
+      1password.asc: https://downloads.1password.com/linux/keys/1password.asc
+      anydesk.asc: https://keys.anydesk.com/repos/DEB-GPG-KEY
+      brave-browser.gpg: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+      filebot.asc: https://raw.githubusercontent.com/filebot/plugins/master/gpg/maintainer.pub
       githubcli.gpg: https://cli.github.com/packages/githubcli-archive-keyring.gpg
       mongodb.asc: https://pgp.mongodb.com/server-7.0.asc
       postgresql.asc: https://www.postgresql.org/media/keys/ACCC4CF8.asc
@@ -26,8 +30,20 @@
     label: "{{ item.filename }}"
   vars:
     data:
+      1password: >-
+        deb [arch=amd64 signed-by=/etc/apt/keyrings/1password.asc]
+        https://downloads.1password.com/linux/debian/amd64 stable main
+      anydesk: >-
+        deb [signed-by=/etc/apt/keyrings/anydesk.asc]
+        http://deb.anydesk.com/ all main
+      brave-browser:
+        deb [arch=amd64 signed-by=/etc/apt/keyrings/brave-browser.gpg]
+        https://brave-browser-apt-release.s3.brave.com/ stable main
       deadsnakes: >-
         ppa:deadsnakes/ppa
+      filebot: >-
+        deb [arch=all signed-by=/etc/apt/keyrings/filebot.asc]
+        https://get.filebot.net/deb/ universal main
       fish: >-
         ppa:fish-shell/release-3
       githubcli: >-
@@ -38,9 +54,15 @@
         https://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/7.0 multiverse
       neovim: >-
         ppa:neovim-ppa/unstable
-      postgresql:
+      obs-studio: >-
+        ppa:obsproject/obs-studio
+      peek: >-
+        ppa:peek-developers/stable
+      postgresql: >-
         deb [arch=amd64 signed-by=/etc/apt/keyrings/postgresql.asc]
         https://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main
+      qbittorrent: >-
+        ppa:qbittorrent-team/qbittorrent-stable
 
 - name: apt | Update cache
   ansible.builtin.apt:

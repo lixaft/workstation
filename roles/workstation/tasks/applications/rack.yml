@@ -1,0 +1,56 @@
+- name: rack | Download archive
+  ansible.builtin.get_url:
+    url: https://vcvrack.com/downloads/RackFree-{{ rack_version }}-lin-x64.zip
+    dest: /tmp/RackFree-{{ rack_version }}-lin-x64.zip
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: rack | Create unarchive directory
+  ansible.builtin.file:
+    path: /tmp/RackFree-{{ rack_version }}-lin-x64
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: rack | Unarchive
+  ansible.builtin.unarchive:
+    src: /tmp/RackFree-{{ rack_version }}-lin-x64.zip
+    dest: /tmp/RackFree-{{ rack_version }}-lin-x64
+    owner: lixaft
+    group: lixaft
+
+- name: rack | Create install directory
+  ansible.builtin.file:
+    path: /home/lixaft/.opt/rack
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: rack | Move to install directory
+  ansible.builtin.command:
+    argv:
+      - mv
+      - /tmp/RackFree-{{ rack_version }}-lin-x64/Rack2Free
+      - /home/lixaft/.opt/rack/{{ rack_version }}
+    creates: /home/lixaft/.opt/rack/{{ rack_version }}
+
+- name: rack | Copy desktop file
+  ansible.builtin.copy:
+    src: rack.desktop
+    dest: /home/lixaft/.local/share/applications/rack.desktop
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: rack | Copy executable
+  ansible.builtin.template:
+    src: rack
+    dest: /home/lixaft/.local/bin/rack
+    force: true
+    owner: lixaft
+    group: lixaft
+    mode: "0755"

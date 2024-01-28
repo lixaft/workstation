@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pushd "/home/lixaft/.opt/rack/{{ rack_version }}/"
+./Rack

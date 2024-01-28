@@ -1,4 +1,6 @@
 go_version: 1.21.6
+mrv2_version: "0.7.1"
 node_version: 21.6.1
 opam_version: 2.1.5
+rack_version: "2.4.1"
 zig_version: 0.11.0
