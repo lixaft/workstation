@@ -20,8 +20,8 @@
 
 - name: Wallpaper tasks
   ansible.builtin.import_tasks:
-    file: keyboard.yml
-  tags: [keyboard]
+    file: wallpaper.yml
+  tags: [wallpaper]
 
 - name: Window manager tasks
   ansible.builtin.import_tasks:
