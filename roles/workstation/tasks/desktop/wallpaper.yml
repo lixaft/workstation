@@ -1,0 +1,28 @@
+- name: wallpaper | Install nitrogen
+  ansible.builtin.apt:
+    name: nitrogen
+    state: latest
+
+- name: wallpaper | Clone repository
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:lixaft/wallpapers
+    dest: /home/lixaft/wallpapers
+    update: false
+
+- name: wallpaper | Create nitrogen config directory
+  ansible.builtin.file:
+    path: /home/lixaft/.config/nitrogen
+    state: directory
+    owner: lixaft
+    group: lixaft
+    mode: "0755"
+
+- name: wallpaper | Copy default nitrogen configuration
+  ansible.builtin.copy:
+    src: nitrogen.cfg
+    dest: /home/lixaft/.config/nitrogen/nitrogen.cfg
+    owner: lixaft
+    group: lixaft
+    mode: "0644"

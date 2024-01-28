@@ -22,3 +22,8 @@
   ansible.builtin.import_tasks:
     file: desktop/main.yml
   tags: [desktop]
+
+- name: Application tasks
+  ansible.builtin.import_tasks:
+    file: applications/main.yml
+  tags: [applications]

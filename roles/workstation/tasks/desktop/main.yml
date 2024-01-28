@@ -18,10 +18,10 @@
     file: keyboard.yml
   tags: [keyboard]
 
-- name: Display manager tasks
+- name: Wallpaper tasks
   ansible.builtin.import_tasks:
-    file: display_manager.yml
-  tags: [display_manager]
+    file: keyboard.yml
+  tags: [keyboard]
 
 - name: Window manager tasks
   ansible.builtin.import_tasks:
