@@ -1,6 +1,6 @@
 - name: zig | Download archive
   ansible.builtin.get_url:
-    url: https://ziglang.org/download/{{ zig_version }}/zig-linux-x86_64-{{ zig_version }}.tar.xz
+    url: https://ziglang.org/builds/zig-linux-x86_64-{{ zig_version }}.tar.xz
     dest: /tmp/zig-{{ zig_version }}.tar.xz
     owner: lixaft
     group: lixaft

@@ -4,4 +4,4 @@ mrv2_version: 1.0.2
 node_version: 21.6.1
 opam_version: 2.1.5
 rack_version: 2.4.1
-zig_version: 0.11.0
+zig_version: 0.12.0-dev.2341+92211135f
