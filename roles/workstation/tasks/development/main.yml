@@ -3,6 +3,11 @@
     file: utility.yml
   tags: [utility]
 
+- name: Library tasks
+  ansible.builtin.import_tasks:
+    file: library.yml
+  tags: [library]
+
 - name: Language tasks
   ansible.builtin.import_tasks:
     file: languages/main.yml

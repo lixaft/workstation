@@ -1,0 +1,9 @@
+- name: utility | Install library packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - libglew
+    - libglew-dev
+    - libglfw3
+    - libglfw3-dev
