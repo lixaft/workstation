@@ -6,7 +6,9 @@
     - alien
     - aptitude
     - bat
+    - btop
     - build-essential
+    - cloc
     - cmake
     - curl
     - dos2unix
