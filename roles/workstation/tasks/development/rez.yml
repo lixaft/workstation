@@ -1,0 +1,26 @@
+- name: rez | Clone repository
+  become: true
+  become_user: lixaft
+  ansible.builtin.git:
+    repo: git@github.com:AcademySoftwareFoundation/rez
+    dest: /tmp/rez
+    depth: 1
+    update: false
+    accept_newhostkey: true
+
+- name: rez | Install package
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: python3 /tmp/rez/install.py /home/lixaft/.opt/rez
+
+- name: rez | Create essential packages
+  become: true
+  become_user: lixaft
+  ansible.builtin.command:
+    cmd: /home/lixaft/.opt/rez/bin/rez/rez-bind {{ item }}
+  loop:
+    - platform
+    - arch
+    - os
+    - python --exe /usr/bin/python3

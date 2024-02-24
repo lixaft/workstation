@@ -32,3 +32,8 @@
   ansible.builtin.import_tasks:
     file: shell.yml
   tags: [shell, fish]
+
+- name: Rez tasks
+  ansible.builtin.import_tasks:
+    file: rez.yml
+  tags: [rez]
