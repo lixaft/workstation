@@ -1,4 +1,4 @@
-- name: utility | Install library packages
+- name: library | Install library packages
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
