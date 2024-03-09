@@ -8,6 +8,11 @@
     file: flatpak.yml
   tags: [flatpak]
 
+- name: Nix tasks
+  ansible.builtin.import_tasks:
+    file: nix.yml
+  tags: [nix]
+
 - name: Sudo tasks
   ansible.builtin.import_tasks:
     file: sudo.yml

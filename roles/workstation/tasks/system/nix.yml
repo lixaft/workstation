@@ -1,0 +1,33 @@
+- name: nix | Create the root directory
+  ansible.builtin.file:
+    path: /nix
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  register: nix_directory
+
+- name: nix | Create group
+  ansible.builtin.group:
+    name: nixbld
+    gid: 30000
+    state: present
+
+- name: nix | Add user to group
+  ansible.builtin.user:
+    name: lixaft
+    groups: [nixbld]
+    append: true
+
+- name: nix | Download the installation script
+  ansible.builtin.get_url:
+    url: https://nixos.org/nix/install
+    dest: /tmp/nix-install
+    owner: lixaft
+    group: lixaft
+    mode: "0644"
+
+- name: nix | Installation
+  ansible.builtin.shell:
+    cmd: /usr/bin/sh /tmp/nix-install --daemon --yes
+  when: nix_directory.changed is true
