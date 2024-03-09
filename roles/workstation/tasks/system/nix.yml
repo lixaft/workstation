@@ -28,6 +28,6 @@
     mode: "0644"
 
 - name: nix | Installation
-  ansible.builtin.shell:
+  ansible.builtin.command:
     cmd: /usr/bin/sh /tmp/nix-install --daemon --yes
   when: nix_directory.changed is true
