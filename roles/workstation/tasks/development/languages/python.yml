@@ -74,6 +74,18 @@
     - ruff
     - tox
     - twine
+    - uv
+
+- name: python | Symlink development executables
+  become: true
+  become_user: lixaft
+  ansible.builtin.file:
+    src: /home/lixaft/.opt/{{ item }}/bin/{{ item }}
+    dest: /home/lixaft/.local/bin/{{ item }}
+    state: link
+    owner: lixaft
+    group: lixaft
+  loop: *packages
 
 - name: python | Copy PyPI configuration file
   ansible.builtin.copy:
