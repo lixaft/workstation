@@ -3,7 +3,6 @@
     name: "{{ item }}"
     state: latest
   loop:
-    - 1password
     - alacritty
     - anydesk
     - brave-browser
